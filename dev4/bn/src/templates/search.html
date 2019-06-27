@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>crm</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<form method="POST">
+<select username="username"/>
+{% for username inobject_list %}
+
+{%endfor%}
+{% for entry in items %}
+    <option value="{{ entry.id }}"=={{ entry.username }}</option>
+{% endfor %}
+</select>
+</form>
+<div class="text-center">
+	 	<li> <a href="/newcustumer" class="btn btn-success"> add custumer</a></li>
+
+ <form action="/action_page.php">
+<div class="mt-5">
+	<div class="form-group">
+		<input type="" class="form-group" id="m" placeholder="search" name="search">
+	</div>
+	<li><a href="/contact" class="btn btn-primary">search</a></li>
+	
+	
+</div>
+ </form>
+</div>
+</body>
+</html>
