@@ -16,20 +16,31 @@ Including another URLconf
 
 from django.conf.urls import url
 from django.contrib import admin
-from pages import views
-from pages.views import contact_view
-from pages.views import emplog
+from crm import views
+from crm.views import emplog
 from django.contrib import admin
+from django.conf.urls import url, include
+from django.contrib import admin
+from django.conf import settings
 
 #from pages.views import home_view, contact_view
 
 urlpatterns = [
 url(r'^$', views.home_view, name='home'),
-url(r'^contact/$', views.contact_view, name='contact'),
+url(r'^custumer/$', views.custumer_view, name='custumer'),
 url(r'^emplog$', views.emplog, name='emplog'),
-url(r'^search$', views.search, name='search'),
+url(r'^search/$', views.search_view, name='search'),
 url(r'^newcustumer$', views.new_custumer, name='newcustumer'),
-url(r'^index$', views.index, name='index'),
+url(r'^login/$',views.emplog, name='login'),
+url(r'^edit/$',views.edit_view, name='edit'),
+url(r'^showallserves/$',views.show_serves, name='showallserves'),
+url(r'^newserves/$',views.new_serves, name='newserves'),
+url(r'^delete1$',views.delete_view, name='delete1'),
+
+
+
+
+
 #url(r'^admin$', admin.site.urls),
 #url(r'^bootstrap/', TemplateView.as_view(template_name='bootstrap/exmples.html')),
 ]

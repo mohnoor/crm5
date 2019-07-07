@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html >
 <head>
   <title>crm</title>
   <meta charset="utf-8">
@@ -9,24 +9,21 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
+<br/>	
 <body>
-	<form method="POST">
-<select username="username"/>
-{% for entry in items %}
-    <option value="{{ entry.id }}"=={{ entry.username }}</option>
-{% endfor %}
-</select>
-</form>
-<div class="text-center">
-	 	<li> <a href="/newcustumer" class="btn btn-success"> add custumer</a></li>
+	<a href="/newcustumer" class="btn btn-success"> add custumer</a>
+ <a href="/newserves" class="btn btn-success mr-">add new serves</a>
 
- <form action="/action_page.php">
+<div class="text-center">
+	<li> <a href="/" class="btn btn-dark"> main page</a></li>
+
 <div class="mt-5">
 	<div class="form-group">
-		<input type="" class="form-group" id="m" placeholder="search" name="search">
+	<form action="{% url 'custumer' %}" method="GET" value="{{request.GET.username}}">
+   Search <input  type="text" name="username" value="{{request.GET.username}}" placeholder="Search "/>
 	</div>
-	<li><a href="/contact" class="btn btn-primary">search</a></li>
-	
+<input type="submit" class="btn btn-primary" name="submit" value="Search"/>
+	</form>
 	
 </div>
  </form>

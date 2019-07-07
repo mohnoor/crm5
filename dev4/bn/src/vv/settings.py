@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     # third party
 
     #own
-    'pages',
-    'products',
+    'crm',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +81,7 @@ WSGI_APPLICATION = 'vv.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'crm',
+        'NAME': 'crm1',
         'USER' : 'root',
         'PASSWORD' : '@M681755ma',
         'HOST' : 'localhost',
@@ -128,3 +127,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+LOGIN_REDIRECT_URL =  '/'

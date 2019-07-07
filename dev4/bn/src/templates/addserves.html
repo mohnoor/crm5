@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,29 +18,22 @@
       </div>
     </div>
 
-<table class="sm-2  table table-bordered" width="10px">
-  <thead>
-    <tr>
-      <th scope="col">username</th>
-      <th scope="col">name</th>
-      <th scope="col">identity</th>
-      <th scope="col">mobile</th>
-    </tr>
-  </thead>
-  {%for result in results%}
+              <h3>{{request.GET.username}}</h3>
+
+  <form action="" method="post">
+    {% csrf_token %}
+
+    <select name="c" class="custom-select mb-3">
+
+            {% for serves in hh %}
+
+      <option class="form-input"  value="{{serves.scoast}}" >{{serves.sname}}</option>
+            {%endfor%}
+<input type="" value="c.selected" name="cserve">
+    </select>
+    <input type="submit"  class="btn btn-primary" value="add"/>
+
   
-  
-   <thead>
-    <tr>
-      <th scope="col"><form action="{% url 'custumer' %}" method="GET" value="{{request.GET.username}}">
-    
-<input class="" type="hidden" name="username" value="{{result.username}}"/>
-<input type="submit" class="btn" name="submit" value="{{result.username}}"/>
-      <th scope="col">{{result.fname}} {{result.lname}}</th>
-      <th scope="col">{{result.identity}}</th>
-      <th scope="col">{{result.mobile}}</th>
-    </tr>
-  </thead>
- 
-  {%endfor%}
+</div>
 </body>
+</html>

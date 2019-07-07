@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<br/>
+<head>
+  <title>crm</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <form action="{% url 'showallserves' %}" method="GET" value="{{request.GET.username}}">
+    <input  type="submit" name="username" value="{{request.GET.username}} "/>
+     <a href="/showallserves" class="btn btn-success mr-">add serves</a>
+
+
+</form>
+
+
+</div>
+ <div>
+ 	
+<div class="text-center" >
+<a href="/" class="btn btn-dark mr-12"> main page</a>
+
+	<div class="mt-5 col-md-12">
+    <form action="/show_part" method="post" value="{{request.post.username}}">
+                    {% csrf_token %}
+
+    <h3>{{form.sname}}</h3>
+   
+<nav class="navbar navbar-expand-sm  my-4 bg-success navbar-dark text-center">
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+    {% for result in results %}
+
+   
+      <a class="nav-link mr-4" >Username:  </a>
+    
+<li class="nav-item active">
+      <a class="nav-link mr-4" >{{result.username}}</a>
+    </li>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link mr-4" >name:  </a>
+    </li>
+    <li class="nav-item active">
+    	<a class="nav-link mr-4">{{result.fname}} {{result.lname}}</a>
+    	
+    </li>
+    
+    <li class="nav-item active">
+      <a class="nav-link mr-4">status:</a>
+      <a class="nav-link mr-4" >{{result.cserve}}</a>
+
+    </li>
+    <li>
+	<div class="form-group">
+  </form>
+	<form action="{% url 'custumer' %}" method="GET" value="{{request.GET.username}}">
+   Search <input  type="text" name="username" value="" placeholder="Search "/>
+   <input type="submit" class="btn btn-primary" name="submit" value="Search"/>
+
+  </div>
+  </form>
+
+	</div>
+
+</li>
+  </ul>
+</nav>
+
+  </ul>
+</div>
+ <div class="text-center">
+  <h1>CUSTUMER INFO</h1>
+  <h3>{{result.cserve}}</h3>
+
+  <br/>
+  <div class="container">     
+    <div class="row">
+      <div class="col-sm-4 ">idetity:</div>
+      <div class="bg-light col-sm-4">{{result.identity}}</div>
+    </div>
+    <div class="row">
+    	<div class="col-sm-4">name</div>
+    	<div class="bg-light col-sm-4">{{result.fname}} {{result.lname}}</div>
+       </div>
+<div class="row">
+    	<div class="col-sm-4">mobile</div>
+    	<div class="bg-light col-sm-4">{{result.mobile}}</div>
+       </div>
+       <div class="row">
+    	<div class="col-sm-4">adreass</div>
+    	<div class="bg-light col-sm-4" >{{result.address}}</div>
+       </div>
+       
+      </div>
+      <br/>
+      <br/>
+     
+
+<td>
+  <form action="{% url 'delete1' %}" method="GET" value="{{request.GET.username}}">
+    
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+<input type="submit" class="btn btn-danger" name="submit" value="delete custumer"/>
+</td>
+    {%endfor%}
+    
+</div>
+</div>
+</body>
+
+ 	
+
+
+
+
+</html>
+
+
