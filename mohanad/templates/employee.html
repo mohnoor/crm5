@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <title>Employee</title> 
+
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+ <link rel="stylesheet" href=  
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">  
+   <!-- CSS -->
+
+   
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    
+<style>
+.fixed-top {
+  position: fixed;
+  top: 0;
+  
+}
+navbar .nav-item:not(:last-child) {
+  margin-right: 35px;
+}
+
+.dropdown-toggle::after {
+   transition: transform 0.15s linear; 
+}
+
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+.vl {
+  border-left: 2px solid tomato; 
+  height: 30px;
+}
+hr {
+  border: 0.01px solid grey;
+  margin-top: 20px;
+  margin-bottom : 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.icon-addon {
+    position: relative;
+    color: #555;
+    display: block;
+}
+
+.icon-addon:after,
+.icon-addon:before {
+    display: table;
+    content: " ";
+}
+
+.icon-addon:after {
+    clear: both;
+}
+</style>
+
+</head>
+
+  
+
+<body class="" style="background-color:#FAF0E6; ">
+  
+<div style="margin-bottom: 100px;">
+ {% extends 'headbar.html' %}
+ {% block content %}
+</div>  
+<nav class="navbar text-bold-900 navbar-expand-lg line-height-2 mt-5 mx-4 bg-light border border-dark text-center bg-white " >
+   
+
+  <ul class="navbar-nav " >
+    <li class="nav-item active d-inline ">
+          <ul class="nav nav-tabs mt-2 mr-5" style="font-size: 19px;"  id="myTab">
+           
+          
+        <li class="mr-5 ml-5 "><a class="d-inline "  data-toggle="tab" href="#employee_list"><span class='fas fa-ticket-alt'></span> All employee</a></li>
+
+        <li class="mr-5 ml-5 "><a class="d-inline "  data-toggle="tab" href="#vacation_list"><span class='fas fa-ticket-alt'></span>Employee in vacation</a></li>
+        <li class="mr-5 ml-5 "><a class="d-inline "  data-toggle="tab" href="#allvacation_list"><span class='fas fa-ticket-alt'></span>All vacations in this month</a></li>
+ </ul>
+</li>
+</ul>
+</nav>
+<div class="tab-content ">
+<div id="employee_list" class="tab-pane fade in active">
+
+<div class="card  " style="
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  margin-top: 20px;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+  <li class="card-body d-inline" style="text-align: center;">
+<div class="text-center">  
+    
+</div>
+ <div class="text-left">
+  {% if messages %}
+
+<ul class="messages" style="margin-top: 20px;margin-right: 20px;">
+    {% for message in messages %}
+    
+    <div  class="{%if message.level_tag == 'error' %} alert alert-danger {%else%} alert alert-{{message.level_tag}} {%endif%} alert-dismissible" role=" alert"  >{{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>
+  
+  
+    {% endfor %}
+    {%endif%}
+</div>
+  <div class="card-body"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+ <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+    
+    
+    <script src="https://nightly.datatables.net/js/dataTables.bootstrap4.min.js "></script>
+       
+ 
+</script>
+<div class="container bg">
+    <table class="table table-striped table-bordered  dt-responsive nowrap text-center" style="width:10 " id="myTable">
+    <thead >
+    <tr><th class="text-center">Employee name</th><th class="text-center">Employee ID</th><th class="text-center">Work time</th><th class="text-center">End time</th><th class="text-center">vacation</th><th class="text-center">in vacation</th><th class="text-center">action</th></tr>
+    </thead>
+
+    <tbody>
+         
+                   
+ {%for r in employee%}
+ 
+
+ <tr>
+<td class="text-center">{{r.ename}} </td><td class="text-center">{{r.eid}}</td><td class="text-center">{{r.worktime}} </td><td class="text-center">{{r.endtime}} </td><td class="text-center">{{r.vacation}}</td><td class="text-center">{%for vac in vacation7%}{%if vac.evdate.eid == r.eid and vac.vdate == date    and r.vacation != today %} <p style="color: red; font-weight: bold; font-size: 16px;">Yes</p>{%endif%}{%endfor%}{%if  r.vacation == today %} <p style="color: red; font-weight: bold; font-size: 16px;">Yes</p></td>{%endif%}<td>
+     
+  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal{{r.eid}}">Add vacation</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal{{r.eid}}" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form class=""method="POST" value="">
+    {% csrf_token %}
+      
+    <form class="" action="{% url 'employee' %}" method="GET" value="{{request.GET.eid}}">
+<input class="" type="hidden" name="eid" value="{{request.GET.eid}}"/>
+      <input  class="text-center" type="text" id="datetimepicker{{r.eid}}" value="{{date}}" name="vac" style="width: 295px; height: 45px; background-color: #E0E0E0;"> 
+      <input class="" type="hidden" name="eid" value="{{request.GET.eid}}"/>
+      <script type="text/javascript">
+        $(function() {              
+           // Bootstrap DateTimePicker v4
+           $('#datetimepicker{{r.eid}}').datetimepicker({
+                 format: 'MM/DD/YYYY'
+           });
+        });      
+    </script>
+ 
+
+        </div>
+        <div class="modal-footer">
+          <input class="text-center" type="hidden" name="eid" value="{{r.eid}}"/>
+
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          
+        
+          <button type="submit"  class="btn btn-danger" name="submit" value=""/>  Submit</div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+   
+
+
+     
+</form>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModa{{r.eid}}">Edit</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModa{{r.eid}}" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form class=""method="POST" value="">
+    {% csrf_token %}
+      
+    <form class="" action="{% url 'employee' %}" method="GET" value="{{request.GET.eid}}">
+
+<input type="" value="{{r.worktime}}"  name="wt">
+<input type="" value="{{r.endtime}}" name="et">
+<input type="" value="{{r.vacation}}" name="vaca">
+
+        </div>
+        <div class="modal-footer">
+          <input class="text-center" type="hidden" name="eid1" value="{{r.eid}}"/>
+
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          
+        
+          <button type="submit"  class="btn btn-danger" name="submit" value=""/>  Submit
+     </div>
+   </form>
+ </form>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</td>
+</tr>
+
+ {%endfor%}
+   
+    </tbody>
+   
+    </table>
+  </div>
+</li>
+</form>
+</form>
+</div>
+</div>
+<div id="vacation_list" class="tab-pane fade">
+
+<div class="card  " style="
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  margin-top: 20px;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+  <li class="card-body d-inline" style="text-align: center;">
+<div class="text-center">  
+    
+</div>
+ <div class="text-left">
+
+</div>
+  <div class="card-body"></div>
+
+
+</script>
+<div class="container bg">
+
+
+    <table class="table table-striped table-bordered  dt-responsive nowrap text-center" style="width:10 " id="vacationTable">
+    <thead >
+    <tr><th class="text-center">Employee Name </th><th class="text-center">Employee ID</th><th class="text-center">Vacation</th><th class="text-center">Type</th></tr>
+    </thead>
+
+    <tbody>
+
+      {%for v in vacation7%}
+   {%if v.vdate == date and v.evdate.vacation != today%} 
+
+
+   <tr>
+    <td class="text-center">{{v.evdate.ename}} </td><td class="text-center">{{v.evdate.eid}}</td><td class="text-center">{{v.weekend }}</td><td class="text-center">Anual</td>
+   </tr>
+   {%endif%}
+   {%endfor%}
+   {%for emp in employee%}
+    {%if emp.vacation == today %} 
+
+   <tr>
+    <td class="text-center">{{emp.ename}} </td><td class="text-center">{{emp.eid}}</td><td class="text-center">{{emp.vacation}}</td><td class="text-center">Weekend</td>
+   </tr>
+   {%endif%}
+{%endfor%}
+
+
+
+</tbody>
+</table>
+</div>
+</li>
+</div>
+</div>
+<div id="allvacation_list" class="tab-pane fade">
+
+<div class="card  " style="
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  margin-top: 20px;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+  <li class="card-body d-inline" style="text-align: center;">
+<div class="text-center">  
+    
+</div>
+ <div class="text-left">
+
+</div>
+  <div class="card-body"></div>
+
+
+</script>
+<form class=""method="POST" value="">
+    {% csrf_token %}
+      
+    <form class="" action="{% url 'employee' %}" method="GET" value="{{request.GET.eid}}">
+    
+  {%if prev_month > next_month %}
+       
+<ul class="" style="margin-top: 20px;">
+
+    
+    <div  class="alert alert-danger"  role="alert">
+  The end date can not be before the start date! Please re-enter the correct date.
+</div>
+  
+    
+</ul>
+
+<hr style=" margin-top: 35px; 
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1); 
+  margin-bottom: 15px; ">
+  
+<div class="container bg">
+
+<div class="text-center">
+    <div class="col" >
+    <div class=" col">
+       <div class="row " style="">
+    
+    <div class="col">
+      
+      <label style="margin-left: 180px;">From</label>
+    </div>
+     <div class="col" style="">
+    
+<input  type="text" class="form-control" id='datetimepicker3' value="{{prev_month}}" name="vstart" > 
+        <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+      </div>
+
+  
+
+    <div class="col">
+      <label style="margin-left: 180px;">To</label>
+    </div>
+     <div class="col">
+<input  class="form-control" id='datetimepicker4' value="{{next_month}}" name="vend"/> 
+  <span class="glyphicon glyphicon-calendar form-control-feedback"></span>     
+    </div>
+    <div class="col">
+       
+<input class="" type="hidden" name="eid" value="{{request.GET.eid}}"/>
+<button type="submit"  class="btn btn-primary" name="subm
+it" value=""/>  Search
+
+</div>
+
+</form>
+</form>
+
+  </div>
+
+
+{%else%}
+ <hr style=" margin-top: 35px; 
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1); 
+  margin-bottom: 15px; ">
+
+<div class="text-center">
+    <div class="col" >
+    <div class=" col">
+       <div class="row " style="">
+    
+    <div class="col">
+      
+      <label style="margin-left: 180px;" >From</label>
+    </div>
+     <div class="col">
+    
+<input  type="text" class="form-control" id='datetimepicker3' value="{{prev_month}}" name="vstart" > 
+        <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+      </div>
+
+  
+
+    <div class="col">
+      <label style="margin-left: 180px;" >To</label>
+    </div>
+     <div class="col">
+<input  class="form-control" id='datetimepicker4' value="{{next_month}}" name="vend"/> 
+  <span class="glyphicon glyphicon-calendar form-control-feedback"></span>     
+    </div>
+    <div class="col">
+       
+<input class="" type="hidden" name="eid" value="{{request.GET.eid}}"/>
+<button type="submit"  class="btn btn-primary" name="subm
+it" value=""/>  Search
+
+</div>
+
+</form>
+</form>
+
+  </div>
+  <hr style=" margin-top: 35px; 
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1); 
+  margin-bottom: 15px; ">
+    <form class="" action="{% url 'employee' %}" method="GET" value="{{request.GET.eid}}">
+    <table class="table table-striped table-bordered  dt-responsive nowrap text-center" style="width:10; " id="allvacationTable">
+    <thead >
+    <tr><th class="text-center">Employee Name </th><th class="text-center">Employee ID</th><th class="text-center">vacation date</th></tr>
+    </thead>
+
+    <tbody>
+
+      {%for v in vacation7%}
+   {%if prev_month <= v.vdate and v.vdate <= next_month %} 
+
+
+   <tr>
+    <td class="text-center">{{v.evdate.ename}} </td><td class="text-center">{{v.evdate.eid}}</td><td class="text-center">{{v.vdate}}</td>
+   </tr>
+   {%endif%}
+{%endfor%}
+{%endif%}
+
+
+</tbody>
+</table>
+ <script type="">
+$(document).ready(function() {
+    $('#myTable').dataTable( {
+      "ordering": false,
+      "recordsTotal":2,
+       
+         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+       
+    } );
+} );
+
+</script>
+<script type="">
+$(document).ready(function() {
+    $('#allvacationTable').dataTable( {
+      "ordering": true,
+      "recordsTotal":2,
+      "order": [[ 2, "asc" ]],
+       
+         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+       
+    } );
+} );
+
+</script>
+ <script type="">
+$(document).ready(function() {
+    $('#vacationTable').dataTable( {
+      "ordering": false,
+      "recordsTotal":2,
+       
+         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+       
+    } );
+} );
+
+</script>
+ <script type="text/javascript">
+  $(document).ready(() => {
+  let url = location.href.replace(/\/$/, "");
+ 
+  if (location.hash) {
+    const hash = url.split("#");
+    $('#myTab a[href="#'+hash[1]+'"]').tab("show");
+    url = location.href.replace(/\/#/, "#");
+    history.replaceState(null, null, url);
+    setTimeout(() => {
+      $(window).scrollTop(0);
+    }, 400);
+  } 
+   
+  $('a[data-toggle="tab"]').on("click", function() {
+    let newUrl;
+    const hash = $(this).attr("href");
+    if(hash == "#home") {
+      newUrl = url.split("#")[0];
+    } else {
+      newUrl = url.split("#")[0] + hash;
+    }
+    newUrl += "/";
+    history.replaceState(null, null, newUrl);
+  });
+});
+</script>
+ <script type="">
+$(function() {
+  $('#datetimepicker3').datetimepicker({
+    format: 'MM/DD/YYYY',
+    defaultDate: '07/29/2020',
+
+  });
+  
+
+  $('#datetimepicker4').datetimepicker({
+    format: 'MM/DD/YYYY'
+  });
+ $('#datetimepicker3').datepicker('setDate', new Date());
+});
+</script>
+ {%endblock%}
+</body>
+
+

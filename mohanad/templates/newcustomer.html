@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <title>Dashboard</title> 
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+
+
+ <link rel="stylesheet" href=  
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">  
+   <!-- CSS -->
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <style>
+    
+        .form-group.required .control-label:after {
+  content:" *";
+  color:red;
+
+      }
+
+      h1 {
+  font-size: 18px;
+}.fixed-top {
+  position: fixed;
+  top: 0;
+  
+}
+navbar .nav-item:not(:last-child) {
+  margin-right: 35px;
+}
+
+.dropdown-toggle::after {
+   transition: transform 0.15s linear; 
+}
+
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+.vl {
+  border-left: 2px solid tomato; 
+  height: 30px;
+}
+
+</style>
+
+</head>
+
+  
+
+<body class="" style="background-color:#FAF0E6; ">
+<div style="margin-bottom: 100px;">
+{% extends 'headbar.html' %}
+ {% block content %}
+</div>  
+  <div class="card  mx-4" style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  height: 100%;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+{% if messages %}
+
+<ul class="messages" style="margin-top: 20px;margin-right: 20px;">
+    {% for message in messages %}
+    
+    <div  class="{%if message.level_tag == 'error' %} alert alert-danger {%else%} alert alert-{{message.level_tag}} {%endif%} alert-dismissible" role=" alert"  >{{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>
+  
+  
+    {% endfor %}
+  
+</ul>
+
+{%endif%}
+  <li class="card-body d-inline" >
+  	<form action="" method="POST">
+    {% csrf_token %}
+
+  	<div class="text form-group">
+  	<div class="mt-2 col-md-12" >
+      <div class="text-center">
+</div>
+
+  
+
+   	<div class="mt-4 col-md-12">
+       <div class="row">
+    <div class="col">
+      <div class="form-group required">
+      <label  class="control-label">Arabic first name</label>
+      <input type="text" class="form-control"placeholder="Arabic first name" name="Arabicfirstname"required>
+    </div>
+  </div>
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Arabic middle name</label>
+      <input type="text" class="form-control" placeholder="Arabic middle name" name="Arabicmiddlename"required>
+    </div>
+  </div>
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Arabic third name</label>
+      <input type="text" class="form-control " placeholder="Arabic third name" name="Arabicthirdname"required>
+    </div>
+  </div>
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Arabic last name</label>
+      <input type="text" class="form-control" placeholder="Arabic last name" name="Arabiclastname">
+    </div>
+  </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+      <div class="form-group ">
+      <label  class="control-label">English first name</label>
+      <input type="text" class="form-control"placeholder="English first name" name="Englishfirstname">
+    </div>
+  </div>
+    <div class="col">
+      <div class="form-group ">
+      <label class="control-label">English middle name</label>
+      <input type="text" class="form-control" placeholder="English middle name" name="Englishmiddlename">
+    </div>
+  </div>
+    <div class="col">
+      <div class="form-group ">
+      <label class="control-label">English third name</label>
+      <input type="text" class="form-control " placeholder="English third name" name="Englishthirdname">
+    </div>
+  </div>
+    <div class="col">
+      <div class="form-group ">
+      <label class="control-label">English last name</label>
+      <input type="text" class="form-control" placeholder="English last name" name="Englishlastname">
+    </div>
+  </div>
+</div>
+
+       <div class="row mt-3">
+    <div class="col">
+      <label for="inputEmail4">Primary Email
+</label>
+      <input type="text" class="form-control" placeholder="Primary Email" name="email">
+    </div>
+    <div class="col">
+      <label for="inputEmail4">Secondary Email 1</label>
+      <input type="text" class="form-control" placeholder="Secondary Email 1" name="SecondaryEmail1<">
+    </div>
+    <div class="col">
+      <label for="inputEmail4">Secondary Email 2</label>
+    <input type="text" class="form-control" placeholder="Secondary Email 2" name="SecondaryEmail2">
+    </div>
+    
+  </div>
+   	
+   	<div class="row mt-5">
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Primary Mobile
+</label>
+      <input type="text" maxlength="10" class="form-control" max="10" placeholder="Primary Mobile" name="mobile"required>
+    </div>
+  </div>
+    <div class="col">
+      <label for="inputEmail4">Secondary Mobile 1</label>
+      <input type="text" maxlength="10" class="form-control" placeholder="Secondary Mobile 1" name="SecondaryMobile1">
+    </div>
+    <div class="col">
+      <label for="inputEmail4">Secondary Mobile 2</label>
+      <input type="text" maxlength="10" class="form-control" placeholder="Secondary Mobile 2" name="SecondaryMobile2">
+    </div>
+    
+  </div>
+    <div class="row mt-2">
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Landline </label>
+      <input type="text" class="form-control" maxlength="8" placeholder="Land line" name="username"required>
+    </div>
+</div>
+    <div class="col">
+      <label class="control-label">Fax</label>
+      <input type="text" maxlength="9" class="form-control" placeholder="Fax" name="Fax">
+    </div>
+    
+   
+  </div>
+  <div class="row mt-2">
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Nationality </label>
+<select class="form-control select2-hidden-accessible" id="select1" name="Nationality">
+    <option id="7" value="Palestinian" name="status" >Palestinian</option>
+    <option id="7" value="Jordanian" name="status" >Jordanian</option>
+    <option id="7" value="Other" name="status" >Other</option>
+  </select>    </div>
+</div>
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Identity </label>
+      <input type="text" maxlength="10" class="form-control" placeholder="Identity " name="identity">
+    </div>
+
+  </div>
+
+     <input type="hidden"  class="form-group" placeholder="" value="Activation" name="status"  />
+
+   	</div>
+<div class="row mt-3">
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">City </label>
+<select class="form-control select2-hidden-accessible" id="select2" name="city">
+    <option id="7" value="الخليل" name="status" >الخليل</option>
+    <option id="7" value="القدس" name="status" >القدس</option>
+    <option id="7" value="اريحا" name="status" >اريحا</option>
+    <option id="7" value="بيتلحم" name="status" >بيتلحم</option>
+    <option id="7" value="جنين" name="status" >جنين</option>
+    <option id="7" value="خان يونس" name="status" >خان يونس</option>
+    <option id="7" value="دير البلح" name="status" >دير البلح</option>
+    <option id="7" value="رام الله والبيرة" name="status" >رام الله والبيرة</option>
+    <option id="7" value="رفح" name="status" >رفح</option>
+    <option id="7" value="سلفيت" name="status" >سلفيت</option>
+    <option id="7" value="جباليا" name="status" >جباليا</option>
+    <option id="7" value="طوباس" name="status" >طوباس</option>
+    <option id="7" value="طولكرم" name="status" >طولكرم</option>
+    <option id="7" value="غزة" name="status" >غزة</option>
+    <option id="7" value="قلقيلية" name="status" >قلقيلية</option>
+    <option id="7" value="نابلس" name="status" >نابلس</option>
+
+  </select>    </div>
+</div>
+  <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Service </label>
+<select class="form-control select2-hidden-accessible" id="select3" name="service">
+  <option id="7" selected="" value="{{r.service}}" name="status" >{{r.service}}</option>
+    <option id="7" value="Internet over ADSL" name="status" >Internet over ADSL</option>
+        <option id="7" value="Broadband" name="status" >Broadband</option>
+
+  </select>    </div>  
+</div>
+
+
+  </div>
+  <div class="row mt-2">
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Speed </label>
+<select class="form-control select2-hidden-accessible" id="select5" name="speed">
+    <option id="7" value="8M" name="status" >8M</option>
+    <option id="7" value="16M" name="status" >16M</option>
+    <option id="7" value="24M" name="status" >24M</option>
+    <option id="7" value="30M" name="status" >30M</option>
+    <option id="7" value="50M" name="status" >50M</option>
+    <option id="7" value="100M" name="status" >100M</option>
+  </select>    </div>
+</div>
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Period </label>
+<select class="form-control select2-hidden-accessible" id="select6" name="period">
+    <option id="7" value="3" name="status" >3</option>
+    <option id="7" value="6" name="status" >6</option>
+    <option id="7" value="12" name="status" >12</option>
+  </select>   
+   </div>  
+    </div>
+
+  </div>
+
+  <div class="row mt-2">
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Address </label>
+   </div>
+    <textarea cols="50" rows="10" name="address"></textarea>
+
+</div>
+
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Street </label>
+   </div>  
+   <textarea cols="50" rows="10" name="street"></textarea>
+      <input type="hidden" class="form-control" name="usercustomer" value="{{user}}">
+
+    </div>
+
+  </div>
+<div class="mt-4 col-md-12">
+   <div class="text-center">
+     <p>
+        <button  class="btn btn-primary btn-md">
+          <span class="glyphicon glyphicon-floppy-disk"></span> Save
+        </button>
+      </p> 
+  </div>
+   </div>
+ </div>
+</div>
+{%endblock%}
+</form>
+</body>
+ 

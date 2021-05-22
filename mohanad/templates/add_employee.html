@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <title>Add employee</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <head>
+    <style type="text/css">
+      #navbar {
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: block;
+  transition: top 0.3s;
+}
+.fixed-top {
+  position: fixed;
+  top: 0;
+  
+}
+navbar .nav-item:not(:last-child) {
+  margin-right: 35px;
+}
+
+.dropdown-toggle::after {
+   transition: transform 0.15s linear; 
+}
+
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+.vl {
+  border-left: 2px solid tomato; 
+  height: 30px;
+}
+
+</style>
+
+</head>
+
+  
+
+<body class="" style="background-color:#FAF0E6; ">
+<div style="margin-bottom: 100px;">
+ {% extends 'headbar.html' %}
+</div>
+<div>
+  </div>
+ {% block content %}
+
+<div class="card  " style="
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  margin-top: 20px;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+  <li class="card-body d-inline" style="">
+ {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div {% if message.tags %} class="{{ message.tags }} alert alert-success alert-dismissible"role="alert" {% endif %} >{{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>
+    {% endfor %}
+</ul>
+{% endif %}
+    <form action="" method="POST">
+    {% csrf_token %}
+    <form action="{% url 'newservice' %}" method="GET" value="{{request.GET.user}}" class="form-group position-relative">
+    <div class="text-center">
+    <div class="mt-2 col-md-12" >
+    <div class="mt-2 col-md-12">
+       <div class="row mt-5">
+    
+    <div class="col">
+      <label for="inputEmail4">Employee Name</label>
+      <input type="text" class="form-control" placeholder="Employee Name" name="ename">
+      
+    </div>
+    <div class="col">
+      <label for="inputEmail4">Employee ID</label>
+      <input type="text"  class="form-control" placeholder="Employee ID" name="eid">
+      
+    </div>
+    
+  </div>
+  
+            <input type="submit" class="btn btn-success mt-3" style="width: 100%;" value="add"/>
+          </div>
+        </div>
+      </div>
+    </form>
+  </form>
+</li>
+</div>
+</div>
+    </div>
+  </div>
+  {%endblock%}

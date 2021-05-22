@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<div class=" bg- text-white">
+<html >
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+    <title>My Open ticket</title> 
+
+</head>
+
+<style type="text/css">
+  li.borderless {
+  border-top: 0 none;
+  border-bottom: 0 none;
+  border-left: 0 none;
+  border-right: 0 none;
+  margin-left:0 none;
+}
+  hr {
+  border: 0.01px solid grey;
+  margin-top: 20px;
+  margin-bottom : 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+/* Style the buttons */
+div.scroal { 
+                
+                width: 380px;
+                height: 650px;
+                overflow: auto; 
+                text-align:justify; 
+            } 
+
+/* Style the active class, and buttons on mouse-over */
+.active {
+  background-color: #D3D3D3 !important;
+}
+.fixed-top {
+  position: fixed;
+  top: 0;
+  
+}
+navbar .nav-item:not(:last-child) {
+  margin-right: 35px;
+}
+
+.dropdown-toggle::after {
+   transition: transform 0.15s linear; 
+}
+
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+.vl {
+  border-left: 2px solid tomato; 
+  height: 30px;
+}
+
+</style>
+
+</head>
+
+  
+
+<body class="" style="background-color:#FAF0E6; ">
+<div style="margin-bottom: 100px;">
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top" style="font-size: 18px; ">
+    <div class="container">
+        <ul class="nav navbar-nav">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+
+           <a href="{% url 'home' %}" style="font-size:18px"class="btn btn-link">Dashboard</a>
+            </li>
+           <div class="vl"></div>
+        </ul>
+      </form>
+    </ul>
+         <ul class="nav navbar-nav">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+  <li class="nav-item dropdown">
+
+        <a class="nav-link" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Customer
+          </a>
+        
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+          {% if perms.crm.add_customer %} 
+ <a href="/newcustomer"style="color: #FF6347;font-size: 18px;" class="dropdown-item"> add new customer</a>
+{%endif%}
+</form>
+{% if perms.crm.add_customer %} 
+   <form action="{% url 'all' %}" method="GET" value="">
+   <input  type="hidden" name="username" value="" placeholder=" "/>
+<input type="submit" style="color: #FF6347;font-size: 18px;" class="dropdown-item" name="submit"  value="All customer" />
+ {%endif%}
+</form>          
+
+      </li>
+  
+
+ </li>
+           
+        </ul>
+                   <div class="vl"></div>
+
+         <ul class="nav navbar-nav ">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+          <li class="nav-item dropdown">
+        <a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          User
+        </a>
+        
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% if perms.auth.add_user %} 
+
+
+<a href="{% url 'signup' %}" style="color: #FF6347;font-size: 18px;" class="dropdown-item">Add new user</a>
+</form>
+<form action="{% url 'allusers' %}" method="GET" value="">
+   
+ 
+<input type="submit" style="color: #FF6347;font-size: 18px;" class="dropdown-item"name="submit"  value="All users" />
+ 
+</form>
+
+{%endif%}
+</form>          
+
+      </li>
+  
+            </li>
+           
+        </ul>
+</li>
+
+        {% load mathfilters %}
+        
+      
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link " href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <h4 style="color: #FF6347;font-size: 20px;"> {{ user.username }}</h4>
+              </a>
+              <div class="dropdown-menu " aria-labelledby="navbarDropdown2">
+</form>
+</form>
+<form action="{% url 'myopenticket' %}" method="GET" value="{{request.GET.user}}" class="form-group position-relative">
+<div class="input-group bootstrap-touchspin" id="customer_search_wrapper">
+<input name="user" value="{{user}}" type="hidden" class="form-control search-input-field" data-bts-postfix="" name="search">
+<div class="dropdown-divider"></div>
+<button class="dropdown-item"style="color: #FF6347;font-size: 18px;" type="submit">
+My open ticket
+</button>
+</div>
+</form>
+
+<div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'logout' %}" style="color: #FF6347;font-size: 18px;"><i class="fa fa-power-off" style="font-size:15px ;color:red"></i> Log out</a>
+
+              </div>
+            </li>
+          </ul>
+          
+          </form>
+      </div>
+    </div>
+  </nav>
+
+     <script type="text/javascript">
+    const $dropdown = $(".dropdown");
+const $dropdownToggle = $(".dropdown-toggle");
+const $dropdownMenu = $(".dropdown-menu");
+const showClass = "show";
+
+$(window).on("load resize", function() {
+  if (this.matchMedia("(min-width: 768px)").matches) {
+    $dropdown.hover(
+      function() {
+        const $this = $(this);
+        $this.addClass(showClass);
+        $this.find($dropdownToggle).attr("aria-expanded", "true");
+        $this.find($dropdownMenu).addClass(showClass);
+      },
+      function() {
+        const $this = $(this);
+        $this.removeClass(showClass);
+        $this.find($dropdownToggle).attr("aria-expanded", "false");
+        $this.find($dropdownMenu).removeClass(showClass);
+      }
+    );
+  } else {
+    $dropdown.off("mouseenter mouseleave");
+  }
+});
+  </script>
+     
+  </nav>
+
+  <html>
+
+    
+
+
+<body>
+
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+
+</form>
+
+<div class="" id="myGroup">
+
+     
+<div class="d-inline">
+<div class="card d-inline float-left scrollbar scrollbar-primary" style="
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  height: 100%;
+  margin-left: 25px;
+  margin-top: 25px;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+
+  
+  }
+}  ">
+    
+
+    <h4 style="font-size: 18px; font-weight: bold; color: #1E90FF ;margin-top: 15px;margin-bottom: 10px; margin-left: 8px;">My open tickets - {{ results|length }}</h4>
+<hr style="margin-left: 8px; margin-right: 8px;">
+  <input style="width: 375px;margin-bottom: 8px; margin-left: 8px;margin-right: 8px;" class="form-control" id="myInput" type="text" placeholder="Search..">
+
+  <div class="container scroal">
+
+  <div class="list-group" id="myList">
+
+ {%for re in results%}
+
+  <li>
+     <div class="card" >
+
+        <button id="" style="width:100%; height:100%;background-color: #F0F0F0  ;" class="btn btn-light    d-inline" id="btnOUs" ng-click="levelOU()" data-toggle="collapse" data target="#collapse" href="#{{re.id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+           <h4 style="font-size: 16px; font-weight: bold; margin-top: 15px;" class="text-left ">{{re.tickreport.username}}</h4>
+           <h4 style="font-size: 16px; color: #1E90FF" class="text-left">{{re.ticktype}} - {{re.ticksub}}</h4>
+           <ul class="nav navbar-nav" >
+ <form class="form-inline" >
+
+<h4 style="font-size: 16px; " class="text-left ">{{re.tickdate}}</h4>
+ <ul class="nav navbar-nav ml-auto d-inline">
+           <span class="badge badge-primary nav-item  ">{{re.tickstatus}}</span>
+</ul>
+</form>
+</ul>
+</button>
+
+</div>
+
+  </li>
+       
+
+{%endfor%}
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myList li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+</div>
+</ul>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
+
+<div  class="card  d-inline float-right " style="
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  width: 900px;
+  height: 778px;
+  margin-right: 25px;
+  margin-top: 25px;
+
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: scroll;
+
+  }
+}  ">
+{%for re in results%}
+
+ <div  class="collapse"  id="{{re.id}}" data-parent="#myGroup">
+        <div class="card card-body" style="margin-top: 60px; margin-left: 8px;margin-right: 8px;">
+          <form action="" id="verifyDocForm{{re.id}}"  method="POST">
+{% csrf_token %}
+ 
+
+ 
+        
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+
+<input class="" type="hidden" name="tickstatus" value="Closed"/>
+<input class="" type="hidden" name="userclose" value="{{user}}"/>
+
+
+
+   <input class="text-center" type="hidden" name="" value="{{re.tickstatus}}"/> 
+<input class="text-center" type="hidden" name="close" value="{{re.id}}"/>
+<div class="text-">
+  <button type="button" class="btn btn-outline-secondary btncloseTicket{{re.id}}" data-toggle="modal" data-target="">
+  Close ticket
+</button>
+
+
+
+
+ 
+
+  <form class="" action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+                <input type="hidden" name="actionCode" value="1">
+
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+
+<input class="" type="hidden" name="tickstatus" value="Closed"/>
+<input class="" type="hidden" name="userclose" value="{{user}}"/>
+
+<script>
+"use strict"; /* Start of use strict */
+(function () {
+function14();
+})();
+ 
+function function14() {
+$('.btncloseTicket{{re.id}}').on("click", function () {
+swal({
+title: "Are you sure you want to close this ticket?",
+text: "After you close this ticket you will cannot undo!",
+type: "warning",
+showCancelButton: true,
+confirmButtonColor: "#DD6B55",
+confirmButtonText: "Yes",
+cancelButtonText: "No",
+closeOnConfirm: true,
+closeOnCancel: true},
+
+function (isConfirm) {
+if (isConfirm) {
+/* Do your Stuffs */
+swal("Success!", "Item has been deleted successfully", "success");
+jQuery("#verifyDocForm{{re.id}}").submit();
+
+} else {
+swal("Cancelled", "Something went wrong. Please try again.)", "error");
+}
+});
+});
+
+}
+</script> 
+
+<script>
+$("button").click(function(){
+  $("button").removeClass("active");
+  $(this).addClass("active");
+});
+
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+  $('#{{re.id}}').collapse('show')
+})
+</script>
+   <input class="text-center" type="hidden" name="" value="{{re.tickstatus}}"/> 
+<input class="text-center" type="hidden" name="close" value="{{re.id}}"/>
+
+</div>
+</form>
+</form>
+
+
+</form>
+</form>
+ <hr>
+ 
+<form action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+
+          <ul class="nav navbar-nav d-inline">
+            
+<input class="" type="hidden" name="username" value="{{re.tickreport.username}}"/>
+<button type="submit" style="font-size: 18px; font-weight: bold;" class=" d-inline btn  btn-link text-dark" name="submit" value="{{re.tickreport.username}}">{{re.tickreport.username}}</button>
+</form><h4 style="font-size: 18px; color:  #1E90FF;font-weight: bold;" class="text-left d-inline">- {{re.ticktype}} - {{re.ticksub}}</h4>
+</ul>
+<div>
+<span class="badge badge-primary" style="margin-left: 15px;">{{re.tickstatus}}</span>
+</div>
+<h5 style="margin-top: 15px; margin-left: 15px;color: black">{{re.tickname}}</h5>
+
+
+
+<hr style=" margin-top: 35px; 
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1); 
+  margin-bottom: 15px; ">
+{%for rep in resultsreplay%}
+  {%if re.id == rep.replayreport.id %}
+
+  <div class=""  style="background-color: #E8E8E8; margin-top: 3px;">
+
+  <form class="form-inline" style="margin-left: 5px; margin-bottom: 15px;">
+  <h2 class="d-inline" style="color: #1E90FF; margin-left: 4px; margin-top: 8px ; font-size: 15px;  font-weight: bold;color: black;"> {{rep.userreplay}}</h2>
+
+            
+
+<ul class="nav navbar-nav ml-auto d-inline" style="margin-right: 8px;">
+<h2 class="d-inline" style="font-size: 14px;color: black;"> <strong>{{rep.replaydate}}</strong></h2>
+
+
+</ul>
+  </nav>
+</form>
+
+  <h1 style="font-size: 15px;margin-left: 18px; margin-bottom: 25px;color: black;" class="text-left  ">{{rep.replaybody}}</h1> 
+ 
+  </div>
+</ul>
+</form>
+  {%endif%}
+  {%endfor%}
+
+   <form action=""  method="POST">
+{% csrf_token %}
+ 
+        
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+{%for r in results%}
+<input class="" type="hidden" name="status" value="{{r.status}}"/>
+<input class="" type="hidden" name="create" value="{{r.create}}"/>
+<input class="" type="hidden" name="emergency" value="{{r.emergency}}"/>
+<input class="" type="hidden" name="emergencycount" value="{{r.emergencycount}}"/>
+
+{%endfor%}
+<input class="" type="hidden" name="tickstatus" value="{{re.tickstatus}}"/>
+<input class="" type="hidden" name="userreplay" value="{{user}}"/>
+
+
+
+<input class="text-center" type="hidden" name="close" value="{{re.id}}"/>
+<div class="text-center">
+<input type="text" placeholder="Replay to ticket..." class="form-control" name="replaybody" style="margin-top: 15px;"></input>
+
+</div>
+
+</div>
+</form>
+</form>
+    </div>
+
+            
+    {%endfor%}
+
+  </div>
+  </div>
+  
+
+
+</body>
+
+</html>
+</div>

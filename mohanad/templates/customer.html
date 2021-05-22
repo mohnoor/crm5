@@ -1,0 +1,2321 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <title>Customer Profile</title> 
+
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+   
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+<style>
+  #navbar {
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: block;
+  transition: top 0.3s;
+}
+  body {
+  font-size: 100%;
+}
+
+
+
+h1 {
+  font-size: 18px;
+}
+h2 {
+  font-size: 16px;
+}
+
+
+  
+p {
+  font-size: 20px;
+}
+.text-wrap{
+    white-space:normal;
+}
+p.round {
+  background-color:#F0F0F0;  background: solid black;margin-left:10px;margin-right: 10px; 
+  border-radius: 15px; width: 600px; height: 32px;top: 5; align-items: center;
+  line-height: 170%;
+font-size:19px;
+
+
+} 
+
+h5{
+  font-size: 16px;
+}
+hr {
+  border: 1px solid black;
+  margin-top: 50px;
+  margin-bottom : 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+p.h  {
+  border: 1px  gray;
+  margin-top: 5px;
+  margin-bottom : 5px;
+  width: 100%;
+}
+tr {
+   line-height: 25px;
+   min-height: 25px;
+   height: 15px;
+}
+td{
+  width: 100px;
+}
+th{
+  width: 100px;
+}
+            td {
+  word-wrap: break-word;
+}
+
+.text-wrap{
+    white-space:normal;
+}
+.width-200{
+    width:200px;
+}
+.fixed-top {
+  position: fixed;
+  top: 0;
+  
+}
+navbar .nav-item:not(:last-child) {
+  margin-right: 35px;
+}
+
+.dropdown-toggle::after {
+   transition: transform 0.15s linear; 
+}
+
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+.vl {
+  border-left: 2px solid tomato; 
+  height: 30px;
+}
+.fa {
+  font-size: 50px;
+  cursor: pointer;
+  user-select: none;
+}
+th {word-wrap: break-word}
+
+.fa:hover {
+  color: darkblue;
+}
+html, body {
+  height: 50px;
+}
+</style>
+
+</head>
+
+  
+
+<body class="" style="background-color:#F5F5F5; max-height: 100px;">
+
+ <div style="margin-top: 100px;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top" style="font-size: 18px; ">
+    <div class="container">
+        <ul class="nav navbar-nav">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+
+           <a href="{% url 'home' %}" style="font-size:18px"class="btn btn-link">Dashboard</a>
+            </li>
+           <div class="vl"></div>
+        </ul>
+      </form>
+    </ul>
+         <ul class="nav navbar-nav">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+  <li class="nav-item dropdown">
+
+        <a class="nav-link" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Customer
+          </a>
+        
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+          {% if perms.crm.add_customer %} 
+ <a href="/newcustomer"style="color: #FF6347;font-size: 18px;" class="dropdown-item"> add new customer</a>
+{%endif%}
+</form>
+{% if perms.crm.add_customer %} 
+   <form action="{% url 'all' %}" method="GET" value="">
+   <input  type="hidden" name="username" value="" placeholder=" "/>
+<input type="submit" style="color: #FF6347;font-size: 18px;" class="dropdown-item" name="submit"  value="All customer" />
+ {%endif%}
+</form>          
+
+      </li>
+  
+
+ </li>
+           
+        </ul>
+                   <div class="vl"></div>
+
+         <ul class="nav navbar-nav ">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+          <li class="nav-item dropdown">
+        <a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          User
+        </a>
+        
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% if perms.auth.add_user %} 
+
+
+<a href="{% url 'signup' %}" style="color: #FF6347;font-size: 18px;" class="dropdown-item">Add new user</a>
+</form>
+<form action="{% url 'allusers' %}" method="GET" value="">
+   
+ 
+<input type="submit" style="color: #FF6347;font-size: 18px;" class="dropdown-item"name="submit"  value="All users" />
+ 
+</form>
+
+{%endif%}
+</form>          
+
+      </li>
+  
+            </li>
+             <div class="vl"></div>
+            <ul class="nav navbar-nav ">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+          <li class="nav-item dropdown">
+        <a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Employee
+        </a>
+        
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% if perms.auth.add_user %} 
+
+
+<a href="{% url 'add_employee' %}" style="color: #FF6347;font-size: 18px;" class="dropdown-item">Add employee</a>
+</form>
+<form action="{% url 'employee' %}" method="GET" value="">
+   
+ 
+<input type="submit" style="color: #FF6347;font-size: 18px;" class="dropdown-item"name="submit"  value="All Employee" />
+ 
+</form>
+
+{%endif%}
+</form>          
+
+      </li>
+  
+            </li>
+           
+        </ul>
+        </ul>
+
+</li>
+
+        {% load mathfilters %}
+        
+      
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link " href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <h4 style="color: #FF6347;font-size: 20px;"> {{ user.username }}</h4>
+              </a>
+              <div class="dropdown-menu " aria-labelledby="navbarDropdown2">
+</form>
+</form>
+<form action="{% url 'myopenticket' %}" method="GET" value="{{request.GET.user}}" class="form-group position-relative">
+<div class="input-group bootstrap-touchspin" id="customer_search_wrapper">
+<input name="user" value="{{user}}" type="hidden" class="form-control search-input-field" data-bts-postfix="" name="search">
+<div class="dropdown-divider"></div>
+<button class="dropdown-item"style="color: #FF6347;font-size: 18px;" type="submit">
+My open ticket
+</button>
+</div>
+</form>
+
+<div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'logout' %}" style="color: #FF6347;font-size: 18px;"><i class="fa fa-power-off" style="font-size:15px ;color:red"></i> Log out</a>
+
+              </div>
+            </li>
+          </ul>
+          
+          </form>
+      </div>
+    </div>
+  </nav>
+
+     <script type="text/javascript">
+    const $dropdown = $(".dropdown");
+const $dropdownToggle = $(".dropdown-toggle");
+const $dropdownMenu = $(".dropdown-menu");
+const showClass = "show";
+
+$(window).on("load resize", function() {
+  if (this.matchMedia("(min-width: 768px)").matches) {
+    $dropdown.hover(
+      function() {
+        const $this = $(this);
+        $this.addClass(showClass);
+        $this.find($dropdownToggle).attr("aria-expanded", "true");
+        $this.find($dropdownMenu).addClass(showClass);
+      },
+      function() {
+        const $this = $(this);
+        $this.removeClass(showClass);
+        $this.find($dropdownToggle).attr("aria-expanded", "false");
+        $this.find($dropdownMenu).removeClass(showClass);
+      }
+    );
+  } else {
+    $dropdown.off("mouseenter mouseleave");
+  }
+});
+  </script>
+     
+  </nav>
+<div>
+ 
+        
+</div>
+    {% for result in results %}
+    <h1>
+<div class="container-fluid"  >
+  
+<div class="container-fluid p-0 m-0">
+  <div class="text-center">
+     
+  
+
+</div>
+        <div class="container">
+
+        </div>
+
+       
+
+</div>
+
+</div>
+</div>
+ 
+
+                    {% csrf_token %}
+<div class="card  mt-5 mx-4" style="
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+<nav style=" " class="navbar  ">   
+ 
+        <ul class="nav navbar-nav">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+
+           <h1 style="font-weight: bold">Customer info - </h1>
+          
+            </li>
+           
+        </ul>
+        <h1 style="font-size: 21px;margin-bottom: 15px">
+          {%if result.service == "Broadband" %}
+                  <ul class="nav navbar-nav ml-3 ">
+
+<form class="form-inline  ">
+            <li class="nav-item" >
+           <span class="label label-bg shadow-lg label-success d-inline"  >BroadBand Internet Account</span>
+            </li>
+          </form>
+        </ul>
+        {%elif result.service == "Internet over ADSL" %}
+                  <ul class="nav navbar-nav ml-3 ">
+
+<form class="form-inline  ">
+            <li class="nav-item" >
+           <span class="label label-bg shadow-lg d-inline" style="background-color: #0080ff"  >Internet Over ADSL</span>
+            </li>
+          </form>
+        </ul>
+   
+                 {%endif%}
+                 {%if result.pointing is not None %}
+                  <ul class="nav navbar-nav ml-3 ">
+
+<form class="form-inline  ">
+            <li class="nav-item" >
+  <span  class="  label label-bg shadow-lg  d-inline" style=" {%if result.pointing == 'Silver'%} background-color: #C0C0C0; {%elif result.pointing == 'Gold'%} background-color: #FFD700; {%elif result.pointing == 'Platinum' %} background-color: #808080; {%elif result.pointing == 'Diamond'%} background-color: #0080ff {%endif%} "  >{{result.pointing}}</span>
+            </li>
+          </form>
+        </ul>
+
+
+        {%endif%}
+
+</h1>
+         <ul class="nav navbar-nav ml-auto">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+              
+           <h1 class="d-inline" style="font-weight: bold">{{result.Arabicname}}</h1>
+</li>
+</form>
+</ul>
+         
+       <ul class="nav navbar-nav ml-auto">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+           <h1 style="font-weight: bold">{{result.username}}</h1>
+           
+            </li>
+           
+        </ul>
+      </form>
+
+      <ul class="nav navbar-nav ml-auto">
+          <form class="form-inline  ">
+            <li class="nav-item " style="margin-bottom: 15px;">
+              <h1 class="shadow-lg " style="font-size: 25px;font-family:  monospace">
+<span  class="label label-bg shadow-lg {%if result.status == 'Active'%} label-success {%elif result.status == 'Activation'%} label-default {%elif result.status == 'Disable'%} label-danger {%elif result.status == 'Pending'%} label-default {%elif result.status == 'Billing'%} label-default {%endif%}" {%if result.status == 'Emergency'%} class="label-bg shadow-lg label-warning  text-dark" style="background-color: #FFA500
+
+" {%endif%} ">{{result.status}}</span>
+</h1>
+           
+            </li>
+           
+</ul>
+</form>
+<ul class="nav navbar-nav ml-auto">
+<form class="form-inline  ">
+<li class="nav-item" >
+<form  method="GET" value="" style="" action="{% url 'customer' %}">
+    
+<input  class="form-control" style="margin-top: 5px"  type="text" name="username" value="" placeholder="Search "/>
+
+ 
+</form>           
+</li>
+</ul>
+</nav>
+<form class="" id="Edit" action="{% url 'edit' %}" method="GET" value="{{request.GET.username}}">
+
+<input class=""  type="hidden" name="username" value="{{request.GET.username}}"/>
+    
+</form> 
+
+
+
+<hr style=" margin-top: 1px; 
+  border: 0;
+  border-top: 1px solid ; 
+  margin-bottom: 1px; ">
+
+
+
+
+  <li class="card-body d-inline" style="">
+
+<nav class="navbar navbar-expand-lg " role="group" aria-label="Basic example">
+   <ul class="navbar-nav ml-auto">
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group mr-2" role="group" aria-label="First group">
+<button type="submit" form="Edit"  class="btn btn- btn-info d-inline" name="submit" value="">Edit</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+ 
+<button class="card-header1 collapsed btn btn-success" data-toggle="collapse"role="button" aria-expanded="true" data-target="#collapseExample3"> 
+
+          <i style="margin-left: 7px;" class="glyphicon glyphicon-resize-full
+"></i> </button>
+  </div>
+   
+
+                  
+   <script>
+"use strict"; /* Start of use strict */
+(function () {
+function14();
+})();
+ 
+function function14() {
+$('.btnSweetalert').on("click", function () {
+swal({
+title: "Are you sure you want to delete this record?",
+text: "After you delete this record you will not able to get this!",
+type: "warning",
+showCancelButton: true,
+confirmButtonColor: "#DD6B55",
+confirmButtonText: "Yes",
+confirmButtonType: "submit",
+cancelButtonText: "No",
+closeOnConfirm: false,
+closeOnCancel: true},
+
+function (isConfirm) {
+if (isConfirm) {
+/* Do your Stuffs */
+swal("Success!", "Item has been deleted successfully", "success");
+jQuery("#verifyDocForm").submit();
+} else {
+swal("Cancelled", "Something went wrong. Please try again.)", "error");
+}
+});
+});
+}
+</script> 
+<form class="" action="{% url 'edit' %}" method="GET" value="{{request.GET.username}}">
+
+<input class=""  type="hidden" name="username" value="{{request.GET.username}}"/>
+    
+
+
+</form>
+
+</ul>
+
+
+<form action=""   id="verifyDocForm" method="POST">
+{% csrf_token %}
+  
+
+  <form class="" action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+        
+<input class="" type="hidden" name="Emailb" value="Welcome in my site"/>
+
+<input type="hidden" value='Welcome email sent to " {{result.email}} " ' class="form-group" placeholder="" name="generalname"/>
+<input type="hidden" value="{{user}}" class="form-group" placeholder="" name="usergeneral"/>
+
+<input type="hidden" value="{{result.email}}" class="form-group" placeholder="" name="Email"/>
+
+<input type="hidden" name="actionCode" value="1">
+                </form>
+
+
+
+</form>
+</form> 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+</nav>
+
+
+                               <div   class="collapse " aria-labelledby="headingOne" data-parent="#accordion" id="collapseExample3">
+      <p class="round d-inline float-left">
+     <span class="px-3  d-inline">Arabic Name:</span>
+  <span class=" px-3 float-right">{{result.Arabicname}}</span>
+  </p>
+<p class="round d-inline float-right" >
+  <span class="px-3">Identity:</span>
+  <span class=" px-3 float-right">{{result.identity}}</span>
+</p>
+<p class="round d-inline float-left" >
+  <span class="px-3">City:</span>
+  <span class=" px-3 float-right">{{result.city}}</span>
+</p>
+<p class="round d-inline float-right" >
+  <span class="px-3">Mobile:</span>
+  <span class=" px-3 float-right">{{result.mobile}}</span>
+</p>
+<p class="round d-inline float-left" >
+  <span class="px-3">Username:</span>
+  <span class=" px-3 float-right">{{result.username}}</span>
+</p>
+<p class="round d-inline float-right" >
+  <span class="px-3">Fax:</span>
+  <span class=" px-3 float-right">{{result.Fax}}</span>
+</p>
+<p class="round d-inline float-left" >
+  <span class="px-3">Address:</span>
+  <span class=" px-3 float-right">{{result.address}}</span>
+</p>
+
+<p class="round d-inline float-right" >
+  <span class="px-3">Nationality:</span>
+  <span class=" px-3 float-right">{{result.Nationality}}</span>
+</p>
+<p class="round d-inline float-left" >
+  <span class="px-3">Name:</span>
+  <span class=" px-3 float-right">{{result.Englishfirstname}} {{result.Englishmiddlename}} {{result.Englishthirdname}} {{result.Englishlastname}}</span>
+</p>
+
+<p class="round d-inline float-right" >
+  <span class="px-3">Email:</span>
+  <span class=" px-3 float-right">{{result.email}}</span>
+</p>
+<p class="round d-inline float-left" >
+  <span class="px-3">Related to:</span>
+  <span class=" px-3 float-right">{{result.usercustomer}}</span>
+</p>
+<p class="round d-inline float-right" >
+  <span class="px-3">Street:</span>
+  <span class=" px-3 float-right">{{result.street}}</span>
+</p>
+
+</div> 
+
+</li>
+
+</form>
+</form>
+</button>
+</nav>
+</li>
+</div>
+</ul>
+</div>
+</form>
+</ul>
+</ul>
+</ul>
+</ul>
+</form>
+</ul>
+</nav>
+
+</div>
+
+{% if messages %}
+
+<ul class="messages" style="margin-top: 20px;margin-right: 20px;">
+    {% for message in messages %}
+    
+    <div  class="{%if message.level_tag == 'error' %} alert alert-danger {%else%} alert alert-{{message.level_tag}} {%endif%} alert-dismissible" role=" alert"  >{{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>
+  
+  
+    {% endfor %}
+  
+</ul>
+
+{%endif%}
+
+<div class="card  mx-4" id="4" style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+
+  <li class="card-body d-inline" style="">
+<nav class="navbar navbar-expand-lg " role="group" aria-label="Basic example">
+
+  <ul class="navbar-nav ml-auto">
+
+    
+<form class="" id="edit_serv" action="{% url 'edit_serv' %}" method="GET" value="{{request.GET.username}}">
+
+<input class=""  type="hidden" name="username" value="{{request.GET.username}}"/>
+    
+
+
+</form>
+<script type="">
+  $('#myCollapsible').on('click',function(){
+    $('#myCollapsible').collapse('hide')
+  
+});
+</script>
+</form>
+
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group mr-2" role="group" aria-label="First group">
+{% if perms.crm.change_customer %}
+
+<button type="button" class="btn btn-secondary btn-nav" data-toggle="modal" data-target="#exmpleModalstatus">
+  change status
+</button>
+{%endif%}
+{%if result.status == 'Active' or result.status == 'Emergency'%}
+<button type="button" class="btn btn-warning btn-nav" data-toggle="modal" data-target="#exampleModal">
+  Emergency Due
+</button>
+
+{%endif%}
+{%endfor%}
+{% if perms.crm.can_email %}
+      <button  class="btn btn-success btnSweetalert">Send Email</button>
+<script>
+$('button.delete-photo').click(function() {
+    swal({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    type: 'question',
+    showCancelButton: true,
+    cancelButtonColor: '#3085d6',
+    confirmButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+
+      }).then(function () {
+      swal(
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      )
+    })
+  });
+"use strict"; /* Start of use strict */
+(function () {
+function14();
+})();
+ 
+function function14() {
+$('.btnSweetalert').on("click", function () {
+swal({
+title: "Are you sure you want to send this Email?",
+text: "After you send this Email you will cannot undo!",
+type: "warning",
+showCancelButton: true,
+confirmButtonColor: "#DD6B55",
+confirmButtonText: "Yes",
+confirmButtonType: "submit",
+confirmButtonClass: "float-left",
+
+closeOnConfirm: true,
+closeOnCancel: true},
+
+function (isConfirm) {
+if (isConfirm) {
+/* Do your Stuffs */
+swal("Success!", "Email has been sent successfully", "success");
+jQuery("#verifyDocForm").submit();
+} else {
+swal("Cancelled", "Something went wrong. Please try again.)", "error");
+}
+});
+});
+}
+</script> 
+{%endif%}
+{% if perms.crm.can_change_service %}
+
+<button  type="submit" form="edit_serv"   class="btn btn-info d-inline" name="submit" value=""/>Edit</button>
+{%endif%}
+</form>
+</form>
+ <button class="card-header2 collapsed btn btn-success"
+                            data-toggle="collapse"
+                               role="button" aria-expanded="true" data-target="#collapseExample2"> 
+  
+
+                        <i style="margin-left: 7px;" class="glyphicon glyphicon-resize-small
+"></i> 
+  
+                    </button> 
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade " id="exmpleModalstatus" tabindex="-1" role="dialog" aria-labelledby="exmpleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exmpleModalLabel">Change Service Status</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> 
+
+<form action="" id="form" method="POST">
+            {% csrf_token %}
+      <div style="margin-top: 55px;" class="modal-body">
+        <div class="input-group">
+   {% for r in results %}
+        
+   
+ {%if r.status == 'Activation'%}
+<h5 class="" style="font-size: 15px;">New Status</h5>
+
+    <select class="form-control form-control-lg" id="select1" name="status">
+    <option id="7" value="Pending" name="status" >Pending</option>
+  </select>
+  <input type="hidden" placeholder="" value="{{r.emergencycount}}" name="emergencycount">
+  {%elif r.status == 'Pending'%}
+<h5 class="" style="font-size: 15px;">New Status</h5>
+
+    <select class="form-control form-control-lg" id="select1" name="status">
+    <option value="Billing">Billing</option>
+  </select>
+  <input type="hidden" placeholder="" value="{{r.emergencycount}}" name="emergencycount">
+  {%elif r.status == 'Billing'%}
+<h5 class="" style="font-size: 15px;">New Status</h5>
+
+    <select class="form-control form-control-lg" id="select1" name="status">
+    <option value="Active">Active</option>
+  </select>
+  <input type="hidden" placeholder="" value="{{r.emergencycount}}" name="emergencycount">
+    {%elif r.status == 'Active'%}
+<h5 class="" style="font-size: 15px;">New Status</h5>
+
+  <select class="form-control form-control-lg" id="select1" name="status">
+    <option value="Disable">Disable</option>
+  </select>
+  <input type="hidden" placeholder="" value="{{r.emergencycount}}" name="emergencycount">
+
+ 
+
+   {%elif r.status == 'Disable'%}
+<h5 class="" style="font-size: 15px;">New Status</h5>
+  <select style="margin-bottom: 55px;" class="form-control form-control-lg" id="select1" name="status">
+    <option value="Emergency">Active</option>
+  </select>
+  <input type="hidden" value="Changed Emergency Due from {{r.emergency}} to " class="form-group" placeholder="" name="generalname"/>
+<input type="hidden" value="{{user}}" class="form-group" placeholder="" name="usergeneral"/>
+<input type="hidden" value="{{emergency}}" class="form-group" placeholder="" name="generalemer"/>
+  <h5 style="font-size: 15px;">Emergency due</h5>
+        <div  class='input-group date px-1' id='datetimepicker1'>
+    <input style="width: 100%; height: 40px;background-color:#E0E0E0;font-size: 18px;
+          " class="input-group-addon float-left text-left " id='datetimepicker1' value="{{r.emergency}}" name="emergency" /></div>
+    <input type="hidden" placeholder="" value="{{r.emergencycount}}" name="emergencycount">
+   {%elif r.status == 'Emergency'%}
+<h5 class="" style="font-size: 15px;">New Status</h5>
+
+  <select class="form-control form-control-lg" id="select1" name="status">
+    <option value="Active">Active</option>
+    <option value="Disable">Disable</option>
+  </select>
+  
+    <input type="hidden" placeholder="" value="{{r.emergencycount}}" name="emergencycount">
+
+  {%endif%}
+<input type="hidden" value="status changed from {{r.status}} to" class="form-group" placeholder="" name="notename"/>
+</script>
+
+<input type="hidden" class="" value="{{user}}" class="form-group" name="usernote"/>
+
+
+  
+
+    <td>
+
+      </div>
+
+      <div style="margin-top: 45px;" class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+    
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>       
+               
+<input style="background-color:SlateBlue; " type="submit" class="btn text-white btn-md btn-label"  name="submit" value="change "/> 
+</div>
+</td>
+</div>
+</div>
+</div>
+</form>
+</div>
+
+
+
+<form action="" id="form" method="POST">
+            {% csrf_token %}
+  <form class="" action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+    
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+
+<!-- Modal -->
+<div class="modal fade text-right" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" style="font-size: 18px" id="exampleModalLabel">Update Emergency Due</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> 
+
+      <div class="modal-body">
+        <div class="input-group">
+   <input value ="{{r.emergencycount}}" type="hidden"  class="form-group" placeholder="" name="emergencycount"/>
+         
+      <input type="hidden" class="" id="disabledInput" value="{{request.GET.username}}" type="text" placeholder="" disabled>
+
+
+  <div class="row">
+    <div class='col'>
+      <div class="form-group float-left">
+        <h5 class="float-left text-left">New emergency due</h5>
+        <div  class='input-group date px-1' id='datetimepicker1'>
+    <input style="width: 420px; height: 40px;background-color:#E0E0E0;font-size: 18px;
+          " class="input-group-addon float-left text-left " id='datetimepicker1' value="{{r.emergency}}" name="emergency" />
+          <h4 style="font-size: 12px;" class="text-danger float-left ">Old emergency due is: {{r.emergency}}</h4>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+    <div class="">
+    
+    </div> 
+    <input  type="hidden" class=""  value="Emergency" class="form-group" placeholder="address" name="status"/>
+    
+<input type="hidden" value="Changed Emergency Due from {{r.emergency}} to " class="form-group" placeholder="" name="generalname"/>
+<input type="hidden" value="{{user}}" class="form-group" placeholder="" name="usergeneral"/>
+<input type="hidden" value="{{emergency}}" class="form-group" placeholder="" name="generalemer"/>
+
+
+     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       <input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+<input type="submit" style="background-color:SlateBlue;" class="btn" name="submit" value="Update"/> 
+</button>
+</div>
+
+</div>
+
+</form>
+
+
+
+
+</div>
+</div>
+</form>
+</form>
+   
+ {% endfor %}
+
+
+
+ 
+ 
+</nav>
+</form>
+</form>
+</td>
+  
+<script> 
+        $('.card-header1').click(function() { 
+            $(this).find('i').toggleClass(' glyphicon glyphicon-resize-full glyphicon glyphicon-resize-small '); 
+        }); 
+       
+
+    </script> 
+    <script> 
+        $('.card-header2').click(function() { 
+            $(this).find('i').toggleClass(' glyphicon glyphicon-resize-small glyphicon glyphicon-resize-full'); 
+        }); 
+       
+
+    </script> 
+  <script type="text/javascript">
+  $(document).ready(function(){
+  $('#collapseExample2').collapse('show')
+})
+</script>
+
+  
+</p>
+
+<div   class="collapse " aria-labelledby="headingOne" data-parent="#accordion" id="collapseExample2">
+
+       {% for result in results %}
+
+{%if result.status == 'Emergency' or result.status == 'Disable'%}
+<p class="round d-inline float-right" style="background-color:red">
+  <span class="px-3">Emergency due date:</span>
+  <span class=" px-3 float-right">{{result.emergency}}</span>
+</p>
+{%else%}
+<p class="round d-inline float-right" >
+  <span class="px-3">Emergency due date:</span>
+  <span class=" px-3 float-right">{{result.emergency}}</span>
+  {%endif%}
+</p>
+<p class="round d-inline float-left" >
+  <span class="px-3">Period:</span>
+  <span class=" px-3 float-right">{{result.period}}</span>
+</p>
+<p class="round d-inline float-left" >
+  <span class="px-3">Speed:</span>
+  <span class=" px-3 float-right">{{result.speed}}</span>
+</p>
+{%if result.status == 'Emergency' or result.status == 'Disable'%}
+<p class="round d-inline float-right " style="background-color:red" >
+  <span class="px-3">emergency count:</span>
+  <span class=" px-3 float-right">{{result.emergencycount}}</span>
+</p>
+{%else%}
+<p class="round d-inline float-right "  >
+  <span class="px-3">emergency count:</span>
+  <span class=" px-3 float-right">{{result.emergencycount}}</span>
+</p>
+{%endif%}
+
+<p class="round d-inline float-left" >
+  <span class="px-3">Bundle:</span>
+  <span class=" px-3 float-right">{{result.bundle}}</span>
+</p>
+
+<p class="round d-inline float-right" >
+  <span class="px-3">Service:</span>
+  <span class=" px-3 float-right">{{result.service}}</span>
+</p>
+{%endfor%}
+</p>
+</div>
+
+</td>
+</div>
+
+
+
+
+
+        <script type="">
+$(function() {
+  $('#datetimepicker1').datetimepicker({
+    format: 'DD/MM/YYYY'
+  });
+
+});</script>
+</div>
+</form>
+</div>
+</div>
+</div>
+</ul>
+
+</nav>
+
+</li>
+<hr>
+
+<nav class="navbar text-bold-900 navbar-expand-lg line-height-2 mt-5 mx-4 bg-light border border-dark text-center bg-white " >
+   
+
+  <ul class="navbar-nav " >
+    <li class="nav-item  d-inline ">
+          <ul class="nav nav-tabs mt-2 mr-5" style="font-size: 19px;"  id="myTab">
+           
+          
+        <li class="mr-5 ml-5 "><a class="d-inline "  data-toggle="tab" href="#tickets_list"><span class='fas fa-ticket-alt'></span> Tickits</a></li>
+ 
+
+       <li class="nav-item  d-inline">
+
+       <li class="nav-item  d-inline">
+<div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+    <li class="nav-item dropdown">
+
+        <a class="nav-link d-inline" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-bell mr-1"></span> Notifacation</button>
+
+          </a>
+        
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+            <a class="dropdown-item btn btn-bg " style=" font-size: 17px" data-toggle="tab" href="#status_notifacation">Status</a>
+
+    <a class="dropdown-item btn btn-bg" style=" font-size: 17px" data-toggle="tab" href="#Customer_notifacation">Customer</a>
+    <a class="dropdown-item btn btn-bg" role="button" style=" font-size: 17px; " data-toggle="tab" href="#Genaeral_notifacation">General</a>
+        </div>
+      </li>
+    </div>
+  
+      
+       </li>
+       <script>
+$(".ds").click(function(){
+  $("ds").removeClass("active");
+  $(this).addClass("active");
+});
+
+</script>
+ <li class="nav-item  d-inline">
+      <li class="d-inline "><a class="mr-3 ml-4 d-inline" data-toggle="tab" href="#Bills_list"><span class="glyphicon glyphicon-usd mr-1"></span>Bills</a></li>
+
+ <li class="d-inline "><a class="mr-3 ml-4 d-inline" data-toggle="tab" href="#Payment_list"><span class="glyphicon glyphicon-usd mr-1"></span>Payment</a></li>
+
+       <li class="d-inline "><a class="mr-3 ml-4 d-inline" data-toggle="tab" href="#Vas_list"><span class="glyphicon glyphicon-briefcase "></span> VAS</a></li>
+       <li class=""><a class="d-inline "  data-toggle="tab" href="#Promotions_list"><span class='glyphicon glyphicon-gift'></span> Promotions</a></li>
+
+       </li>
+    
+
+</ul>
+    </li>    
+
+ </li>
+   
+    </li>
+
+  
+ 
+
+
+    
+    <form action="{% url 'no' %}" method="GET" value="{{request.GET.username}}">
+    
+<input class="text-center" type="hidden" name="username" value="{{request.GET.username}}"/>
+
+<input type="submit" class="btn btn-link btn-label" name="submit" value="noti"/>
+</div>
+</form>
+
+    </li>
+    
+ <form class=""method="POST" value="">
+            {% csrf_token %}
+
+     
+ </form>
+
+
+  </div>
+</div>
+</ul>
+</nav>
+  </div>
+                                 
+</div>
+<script type="">
+  
+</script>
+</form>
+
+</form>
+<hr>
+</li>
+</ul>
+</nav>
+ 
+ <form class=""method="POST" value="">
+             
+            {% csrf_token %}
+  
+             <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+    
+    
+    <script src="https://nightly.datatables.net/js/dataTables.bootstrap4.min.js "></script>
+    <div class="tab-content ">
+          <div id="Payment_list" class="tab-pane fade">
+<div class="card  mx-4" style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+
+  <li class="card-body d-inline" style="">
+      
+<h2">
+             
+</form>
+  
+
+    <h1 style="font-size: 15px;">
+<hr style="margin-bottom: 25px; margin-top: 15px;">
+ 
+                       
+
+
+
+  <div class="container">
+
+    <table class="table table-striped table-bordered  dt-responsive nowrap text-center" style="" id="PaymentTable">
+    <thead>
+<tr><th class="text-center">Payment Serial</th><th class="text-center">Bill Serial</th><th class="text-center">Payment date</th><th class="text-center">Payment</th><th class="text-center">Paid by</th></tr>
+    </thead>
+
+    <tbody">
+
+             {%for rpaid in insresults%}
+                
+
+      <tr><td>{{rpaid.id}}</td><td>{{rpaid.billid}}</td><td>{{rpaid.paiddate}}</td><td>{{rpaid.payment}}</td><td>{{rpaid.userpaid}}</td>
+      
+</div>
+</td>
+</div>
+</div>
+</td>
+
+{%endfor%}
+
+</tr>
+    </tbody>
+    </table>
+</div>
+</h2">
+
+
+
+</div>
+</tbody">
+</table>
+</div>
+<script type="">
+  $(document).ready(function() {
+    $('#PaymentTable').dataTable( {
+      "ordering": false,
+
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50]]
+    } );
+
+} );
+</script>
+      </li>
+      <div id="Customer_notifacation" class="tab-pane fade ">
+    
+   
+    
+<h2>
+ <div class="card  mx-4" style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+
+  <li class="card-body d-inline" style="">
+  <div class="container">
+   
+    <table class="table table-striped table-bordered  dt-responsive nowrap text-center " id="editTable">
+    <thead>
+    <tr><th class="text-center"> Note</th><th class="text-center">Date</th><th class="text-center">By</th></tr>
+    </thead>
+
+    <tbody">
+          {%for r in results4%}
+
+
+      <tr ><td style="width: 100%" ><div class="text-wrap" style="" >{{r.editname}}</div></td><td style="width: 150px">{{r.editdate}}</td><td>{{r.useredit}}</td></tr>
+   {%endfor%}
+
+    </tbody>
+    </table>
+</div>
+</h2">
+</tbody">
+</table>
+</div>
+</li>
+</div>
+
+ <script type="">
+
+$(document).ready(function() {
+    $('#editTable').dataTable( {
+      "ordering": false,
+      "recordsTotal":2,
+       
+        "lengthMenu": [[10, 25, 50], [10, 25, 50]]
+       
+    } );
+
+} );
+</script>
+
+
+ <div id="Genaeral_notifacation" class="tab-pane fade ">
+    
+   
+    
+<h2>
+ <div class="card  mx-4" style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+
+  <li class="card-body d-inline" style="">
+  <div class="container">
+   
+    <table class="table table-striped table-bordered  dt-responsive nowrap text-center " id="generalTable">
+    <thead>
+    <tr><th class="text-center">Note</th><th class="text-center">Added On</th><th class="text-center">Added By</th></tr>
+    </thead>
+
+    <tbody">
+          {%for r in results5%}
+
+
+      <tr class="margin-right: 5px;margin-left: 5px"><td style="width: 680px" >{{r.generalname}}</td><td style="width: 150px">{{r.generaldate}}</td><td>{{r.usergeneral}}</td></tr>
+   {%endfor%}
+
+    </tbody>
+    </table>
+</div>
+</h2">
+</tbody">
+</table>
+</div>
+</li>
+</div>
+
+ <script type="">
+
+$(document).ready(function() {
+    $('#generalTable').dataTable( {
+      "ordering": false,
+      "recordsTotal":2,
+       
+        "lengthMenu": [[10, 25, 50], [10, 25, 50]]
+       
+    } );
+
+} );
+</script>
+
+ <div id="Promotions_list" class="tab-pane fade">
+  <div class="card  mx-4" style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+<form action="{% url 'prom' %}" method="GET" value="{{request.GET.username}}">
+  <input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+
+  <li class="card-body d-inline" >
+<input type="submit" class="btn btn-success mx-3" name="submit" value="add Promotions"/>
+   
+     </form>
+     
+
+ 
+
+     <div class="mt-4"></div>
+     <div class="container">
+      <h2>
+          <table class="table table-striped table-bordered  dt-responsive nowrap text-center" style=" " id="promTable">
+    <thead>
+    <tr><th style="text-align: center;"> Name </th><th style="text-align: center;"> Date</th><th style="text-align: center;">Bill Serial</th><th style="text-align: center;">By</th></tr>
+    </thead>
+    <tbody">
+          {%for r in results7%}
+
+
+      <tr>
+        <td>{{r.monthnum}}</td><td>{{r.prodate}}</td><td>{{r.billid}}</td><td>{{r.userprom}}</td>
+    
+
+</tr>
+   {%endfor%}
+
+   </tbody">
+   </table>
+ </h2>
+</div>
+
+</li>
+</form>
+</div>
+</div>
+      <div id="Vas_list" class="tab-pane fade">
+        <h2>
+         
+
+<input class="text-center" type="hidden" name="username" value="{{request.GET.username}}"/>
+ <div class="card  mx-4" style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+<form action="{% url 'showallservice' %}" method="GET" value="{{request.GET.username}}">
+  <input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+
+  <li class="card-body d-inline" >
+<input type="submit" class="btn btn-success mx-3" name="submit" value="add Vas"/>
+   
+     </form>
+     </form>
+          </form>
+
+     </form>
+
+     </form>
+     </form>
+     </form>
+     </form>
+     </form>
+     </form>
+     </form>
+
+     <div class="mt-4"></div>
+     <div class="container">
+          <table class="table table-striped table-bordered  dt-responsive nowrap text-center" style=" " id="vasTable">
+    <thead>
+    <tr><th style="text-align: center;"> VAS </th><th style="text-align: center;"> Start date</th><th style="text-align: center;"> Stop date</th><th style="text-align: center;"> VAS status</th><th style="text-align: center;">By</th>{% if perms.crm.delete_vas %}<th style="text-align: center;">Action</th>{%endif%}</tr>
+    </thead>
+    <tbody">
+          {%for r in results3%}
+
+
+      <tr><td>{{r.sname1}}</td><td>{{r.vstartdate}}</td><td>{{r.venddate}}</td><td>{{r.vasstat}}</td><td>{{r.uservas}}</td>{% if perms.crm.delete_vas %}<td>{%if r.vasstat != 'Disable'%}
+        <form action="" id="{{r.id}}"  method="POST">
+{% csrf_token %}
+  
+
+
+      
+        
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+
+<input class="" type="hidden" name="" value="{{user}}"/>
+
+
+   <input class="text-center" type="hidden" name="vasstat" value="Disable"/> 
+<input class="text-center" type="hidden" name="vasdis" value="{{r.id}}"/>
+
+
+
+
+<button type="button"  class="btn btn-danger {{r.id}}"> 
+ <span class="glyphicon glyphicon-remove"></span></button>
+
+<script>
+"use strict"; /* Start of use strict */
+(function () {
+function14();
+})();
+ 
+function function14() {
+$('.{{r.id}}').on("click", function () {
+swal({
+title: "Are you sure you want to disable this vas?",
+text: "After you disable this bill you will cannot undo!",
+type: "warning",
+showCancelButton: true,
+confirmButtonColor: "#DD6B55",
+confirmButtonText: "Yes",
+cancelButtonText: "No",
+closeOnConfirm: false,
+closeOnCancel: false},
+
+function (isConfirm) {
+if (isConfirm) {
+/* Do your Stuffs */
+swal("Success!", "Item has been deleted successfully", "success");
+jQuery("#{{r.id}}").submit();
+} else {
+swal("Cancelled", "Something went wrong. Please try again.)", "error");
+}
+});
+});
+}
+</script> 
+</form>
+
+</div></td>{%endif%}</tr>{%endif%}
+   {%endfor%}
+
+    </tbody>
+        </div>
+      </div">
+ </table>
+</h2>
+ </div>
+    
+
+  </li>
+      <div id="status_notifacation" class="tab-pane fade ">
+    
+   
+    
+<h2>
+ <div class="card  mx-4" style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+
+  <li class="card-body d-inline" style="">
+  <div class="container">
+   
+    <table class="table table-striped table-bordered  dt-responsive nowrap text-center" style="width:10 " id="myTable">
+    <thead>
+    <tr><th class="text-center">Note</th><th class="text-center">Date</th><th class="text-center">By</th></tr>
+    </thead>
+
+    <tbody">
+          {%for r in results1%}
+
+
+      <tr><td>{{r.notename}} {{r.new_status}}</td><td>{{r.notedate}}</td><td>{{r.usernote}}</td></tr>
+   {%endfor%}
+
+    </tbody>
+    </table>
+</div>
+</h2">
+
+{% if perms.crm.delete_customer %}
+
+ <script type="">
+$(document).ready(function() {
+    $('#myTable').dataTable( {
+      "ordering": false,
+
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+    } );
+
+} );
+    
+</script>
+{%else%}
+<script type="">
+$(document).ready(function() {
+    $('#myTable').dataTable( {
+      "ordering": false,
+      "recordsTotal":2,
+       
+        "lengthMenu": [[10, 25, 50], [10, 25, 50]]
+       
+    } );
+} );
+
+</script>
+{%endif%}
+<script type="">
+  $(document).ready(function() {
+    $('#vasTable').dataTable( {
+      "ordering": false,
+
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50]]
+    } );
+
+} );
+</script>
+<script type="">
+  $(document).ready(function() {
+    $('#promTable').dataTable( {
+      "ordering": false,
+
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50]]
+    } );
+
+} );
+</script>
+
+</form>
+</div>
+</tbody">
+</table>
+</div>
+</li>
+
+
+
+<div id="Bills_list" class="tab-pane fade">
+  
+<div class="card  mx-4" style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+
+  <li class="card-body d-inline" style="">
+      
+<h2">
+             
+</form>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white ">
+    <div class="container">
+        <ul class="nav navbar-nav">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+
+           <h1 style="font-weight: bold">Bills total</h1>
+           {%if diff4 == 'None'%}
+           <h1 style="text-align:center; color: #1E90FF; "> 0</h1>
+{%else%}
+<h1 style="text-align:center; color: #1E90FF; "> {{diff4}}</h1>
+{%endif%}
+            </li>
+           
+        </ul>
+         <ul class="nav navbar-nav ml-auto">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+           <h1 style="font-weight: bold">Payment total</h1>
+           {%if diff5 == 'None' %}
+           <h1 style="text-align:center; color: #1E90FF; ">0</h1>
+           {%else%}
+          <h1 style="text-align:center; color: #1E90FF; "> {{diff5}}</h1>
+{%endif%}
+            </li>
+           
+        </ul>
+         <ul class="nav navbar-nav ml-auto">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+           <h1 style="font-weight: bold">Credit total</h1>
+
+<h1 style="text-align:center; color: #1E90FF; "> 1</h1>
+            </li>
+           
+        </ul>
+        {% load mathfilters %}
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+             <h1 style="font-weight: bold">Differens</h1>
+              
+   <h1 style="text-align:center; color: #1E90FF; " >{{diff5|sub:diff4}}</h1> 
+
+
+       
+     
+  </nav>
+</form>
+
+    <h1 style="font-size: 15px;">
+<hr style="margin-bottom: 25px; margin-top: 15px;">
+ 
+                       
+
+<form action="{% url 'newbill' %}" method="GET" value="{{request.GET.username}}">
+             
+
+<input class="text-center" type="hidden" name="username" value="{{request.GET.username}}"/>
+ 
+  
+
+<input type="submit"  class="btn btn-primary" style="margin-bottom: 20px; margin-left: 10px; margin-top: 1px;" name="submit" value="New bill"/> 
+</form>
+
+  <div class="container">
+<table id="billTable" class="table table-striped text-center table-bordered dt-responsive " style="width:100%">
+
+    <thead class="">
+    <tr class="text-wrap"><th class="text-center">Serial</th><th class="text-center">Issue date</th><th class="text-center">Start Billing Date</th><th class="text-center">End Billing Date</th><th class="text-center">Total Bill</th><th class="text-center">Payment</th><th class="text-center">Promotion Count</th><th class="text-center">Status</th><th class="text-center">By</th><th class="text-center">Credit</th>{%if perms.crm.delete_bills %}<th class="text-center">Cancel Bill</th>{%endif%}</tr>
+    </thead>
+
+    <tbody" class="text-wrap">
+
+             {%for rbill in resultsbill%}
+                
+
+      <tr><td>{{rbill.id}}</td><td>{{rbill.billdate}}</td><td>{{rbill.startdate}}</td><td>{{rbill.enddate}}</td><td>{{rbill.billcoast}}</td><td>{{rbill.instalment}}</td><td>{{rbill.prom}}</td>
+      <td><form action="{% url 'paid' %}" method="GET" value="{{rebill.id}}">
+             
+<input class="text-center" type="hidden" name="username" value="{{request.GET.username}}"/>
+<input class="text-center" type="hidden" name="id" value="{{rbill.id}}"/>
+
+ 
+  
+
+
+
+
+{%if rbill.billstat == 'Unpaid'%}
+<button type="submit" style="padding: 2px 18px;" class="btn btn-sm btn-danger text-center ">{{rbill.billstat}}</button>
+</form>
+{%elif rbill.billstat == 'Paid'%}
+<button type="button" style="padding: 2px 18px;" class="btn btn-success btn-sm text-center " >
+  Paid
+</button>
+{%else%}
+{{rbill.billstat}}
+
+{%endif%}
+<form id="{{rbill.id}}" class="" action="{% url 'deletebill' %}" method="GET" value="{{request.GET.username}}">
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+
+
+       <form id="{{rbill.id}}" action="{% url 'deletebill' %}" method="GET" value="{{request.GET.username}}">    
+<input class="text-center" type="hidden" name="id" value="{{rbill.id}}"/>
+</form>
+</form>
+<form id="{{rbill.id}}1" action="{% url 'credit' %}" method="GET" value="{{rebill.id}}">
+             
+<input  class="text-center" type="hidden" name="username" value="{{request.GET.username}}"/>
+<input class="text-center" type="hidden" name="id" value="{{rbill.id}}"/>
+</form>
+
+</form></td><td class="nowrap" style="width: 100%">{{rbill.userbill}}</td><td>{{rbill.credit}}</td>{% if perms.crm.delete_bills and rbill.billstat == 'Unpaid'%}<td>
+
+      
+
+<button form="{{rbill.id}}" type="button" style="padding: 2px 10px;" class="btn btn-danger {{rbill.id}}" data-toggle="" data-target="">
+  <span class="glyphicon glyphicon-remove"></span>
+</button>
+
+
+
+        
+
+<button form="{{rbill.id}}1" type="submit" style="padding: 2px 10px;" class="btn btn-danger " data-toggle="" data-target="">
+  <span class="glyphicon glyphicon-remove"></span>
+</button>
+
+
+
+{%else%}
+<td></td>
+{%endif%}
+
+
+</td>
+</div>
+<script>
+"use strict"; /* Start of use strict */
+(function () {
+function14();
+})();
+ 
+function function14() {
+$('.{{rbill.id}}').on("click", function () {
+swal({
+title: "Are you sure you want to delete this bill?",
+text: "After you delete this bill you will not able to get this!",
+type: "warning",
+showCancelButton: true,
+confirmButtonColor: "#DD6B55",
+confirmButtonText: "Yes",
+cancelButtonText: "No",
+closeOnConfirm: false,
+closeOnCancel: true},
+
+function (isConfirm) {
+if (isConfirm) {
+/* Do your Stuffs */
+swal("Success!", "Item has been deleted successfully", "success");
+jQuery("#{{rbill.id}}").submit();
+} else {
+swal("Cancelled", "Something went wrong. Please try again.)", "error");
+}
+});
+});
+}
+</script> 
+</div>
+</td>
+
+
+
+</tr>
+   {%endfor%}
+
+    </tbody>
+    </table>
+</div>
+</h2">
+
+
+
+</div>
+</tbody">
+</table>
+</div>
+<script type="">
+  $(document).ready(function() {
+    $('#billTable').dataTable( {
+      "ordering": true,
+
+      "order": [[ 7, "desc" ]],
+      
+
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50]]
+    } );
+
+} );
+</script>
+      </li>
+</form>
+<div id="tickets_list" class="tab-pane fade in active">
+
+
+<div class="card  mt-5 mx-4" style="
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+  }
+}
+  " >
+  <div class="mt-5 ">
+  <button class="card-header collapsed card-link btn btn-success"
+                            data-toggle="collapse"
+                              href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> 
+  
+                        <b class="header-title "> 
+<i style="margin-right: 5px;" class="fa fa-plus  "></i> 
+ Add ticket
+                        </b> 
+  
+                    </button> 
+<script> 
+        $('.card-header').click(function() { 
+            $(this).find('i').toggleClass('fas fa-plus fas fa-minus'); 
+        }); 
+    </script> 
+  
+  
+
+  
+</p>
+<div class="collapse text-center" id="collapseExample">
+</form>
+
+ 
+   <form class=""method="POST" value="">
+    {% csrf_token %}
+     
+<div id="example2" class="bs-docs-example">
+
+<input type="hidden" value="my">Malaysia</input>
+       <div class="row" style="margin-bottom: 10px;margin-top: 10px;">
+    <div class="col">
+      <div class="form-group required">
+      <label  class="control-label" style="font-size: 15px;">Type</label>
+<select class="step2 form-control" disabled="disabled" name="ticktype">
+<option value=""></option>
+</select>
+</div>
+</div>
+ <div class="col">
+  <div class="form-group required">
+      <label  class="control-label" style="font-size: 15px;">Subject</label>
+<select class="step3 form-control" disabled="disabled" name="ticksub">
+</select>
+</div>
+</div>
+</div>
+
+<div id="" class="bs-docs-example">
+
+       <div class="row" style="margin-bottom: 10px;margin-top: 10px;">
+    <div class="col">
+      <div class="form-group required">
+      <label  class="control-label" style="font-size: 15px;">Type</label>
+    
+
+<select class="step2 form-control"  name="ticktype">
+<option id="7" value="Support" name="status" >Support</option>
+    <option id="7" value="Comercial" name="status" >Comercial</option>
+    <option id="7" value="System" name="status" >System</option>
+</select>
+</div>
+</div>
+ <div class="col">
+  <div class="form-group required">
+      <label  class="control-label" style="font-size: 15px;">Subject</label>
+<select class="step3 form-control"  name="ticksub">
+      <option id="7" value="Line Activation" name="status" >Line Activation</option>
+      <option id="7" value="Local wirless problem" name="status" >Local wirless problem</option>
+      <option id="7" value="Disable or Enable" name="status" >Disable or Enable</option>
+      <option id="7" value="Website Problem" name="status" >Website Problem</option>
+
+</select>
+</div>
+</div>
+</div>
+
+
+
+
+
+      <textarea cols="30" rows="5" name="tickname" style="width: 100%"></textarea>
+  <input type="hidden" class=""value="{{ user.username }}" class="form-group" placeholder="address" name="useradd"/>
+  <input class="" type="hidden" name="tickstatus" value="Opened"/>
+
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+<input type="submit" class="btn btn-primary btn-label" name="submit" style="width: 100%;" value="Add">
+  </div>
+</div>
+</form>
+</form>
+</div>
+</div>
+<table class="table  dt-responsive nowrap text-center"  id="ticketTable">
+<thead>
+  <tr><th>
+  </th>
+</tr>
+<tbody>
+{%for re in results2%}
+{%if re.tickstatus == 'Opened' %}
+
+    
+     
+    <tr>
+    <th>           
+ 
+
+<div class="mt-5 "id="" style=" border: 1px solid gray;background-color: #E6E6FA;">
+  <form class="form-inline px-3">
+   <h4 class=""style="font-size: 18px; " class="badge badge-danger">{{re.ticktype}} - {{re.ticksub}} - </h4>
+   <h4 style="color: #1E90FF; margin-left: 4px;"> {{re.tickstatus}}</h4>
+
+            
+
+<ul class="nav navbar-nav ml-auto d-inline">
+<h5 style="font-size: 16px;" class="text-right d-inline"> Added by:</h5><h2 class="d-inline" style="font-size: 15px;   font-weight: bold;"> {{re.useradd}}</h2><h5 class="d-inline"> on: </h5><h2 class="d-inline" style="font-size: 15px;   font-weight: bold;"> {{re.tickdate}}</h2>
+
+
+</ul>
+  </nav>
+</form>
+  
+
+  <h1 class="text-left text-wrap px-4" style="margin-right: 5px;margin-left: 5px margin-bottom: 10px; width: 100%;"><br>{{re.tickname}}<br></h1> 
+  <div>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+<nav class="navbar navbar-expand-lg " role="group" aria-label="Basic example">
+   <ul class="navbar-nav ">
+<button style="" type="button" class="btn btn-link text-dark btncloseTicket{{re.id}}" data-toggle="modal" data-target="#">
+ <i class="  far fa-times-circle"></i> Close
+</button>
+</ul>
+
+<form action="" id="verifyDocForm{{re.id}}"  method="POST">
+{% csrf_token %}
+ 
+
+  <form class="" action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+        <input type="hidden" name="actionCode" value="1">
+
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+
+<input class="" type="hidden" name="tickstatus" value="Closed"/>
+<input class="" type="hidden" name="userclose" value="{{user}}"/>
+
+   <script>
+"use strict"; /* Start of use strict */
+(function () {
+function14();
+})();
+ 
+function function14() {
+$('.btncloseTicket{{re.id}}').on("click", function () {
+swal({
+title: "Are you sure you want to close this ticket?",
+text: "After you close this ticket you will cannot undo!",
+type: "warning",
+showCancelButton: true,
+confirmButtonColor: "#DD6B55",
+confirmButtonText: "Yes",
+cancelButtonText: "No",
+closeOnConfirm: true,
+closeOnCancel: true},
+
+function (isConfirm) {
+if (isConfirm) {
+/* Do your Stuffs */
+swal("Success!", "Item has been deleted successfully", "success");
+jQuery("#verifyDocForm{{re.id}}").submit();
+} else {
+swal("Cancelled", "Something went wrong. Please try again.)", "error");
+}
+});
+});
+}
+</script> 
+
+   <input class="text-center" type="hidden" name="" value="{{re.tickstatus}}"/> 
+<input class="text-center" type="hidden" name="close" value="{{re.id}}"/>
+
+</form>
+</form>
+
+      <a style="margin-top: 30px; margin-bottom: 10px;"  class="{{re.id}}1 text-dark collapsed btn btn-link mt-2 " data-toggle="collapse" href="#{{re.id}}1" role="button" aria-expanded="false" aria-controls="{{re.id}}1">
+    Replays list
+              <i style="margin-left: 7px;" class="fa fa-chevron-right"></i> 
+
+  </a>
+  <script type="text/javascript">
+   $('.{{re.id}}1').click(function() { 
+            $(this).find('i').toggleClass(' fa fa-chevron-right   fa fa-chevron-down'); 
+        }); 
+</script>
+</div>
+
+</p>
+<hr style=" margin-top: 1rem; margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);">
+<div class="collapse" id="{{re.id}}1">
+  {%for rep in resultsreplay%}
+  {%if re.id == rep.replayreport.id %}
+   <form class="form-inline">
+  
+
+<ul class="nav navbar-nav ml-auto d-inline px-3">
+<h5 style="font-size: 13px;" class="text-right d-inline"> Added by:</h5><h2 class="d-inline" style="font-size: 12px;   font-weight: bold;"> {{rep.userreplay}}</h2><h5 class="d-inline" style="font-size: 13px;"> on: </h5><h2 class="d-inline" style="font-size: 12px;   font-weight: bold;"> {{rep.replaydate}}</h2>
+
+
+</ul>
+  </nav>
+</form>
+
+  <h1 style="font-size: 15px;margin-right: 5px;margin-left: 15px;" class="text-left text-wrap ">{{rep.replaybody}}</h1> 
+ <hr style=" margin-top: 3rem; margin-bottom: 3rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);">
+  {%endif%}
+  
+  {%endfor%}
+</div>
+
+   <form action=""  method="POST">
+{% csrf_token %}
+ 
+        
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+
+<input class="" type="hidden" name="tickstatus" value="{{re.tickstatus}}"/>
+<input class="" type="hidden" name="userreplay" value="{{user}}"/>
+
+
+
+<input class="text-center" type="hidden" name="close" value="{{re.id}}"/>
+<div class="text-center">
+<input style="margin-bottom: 15px;" type="text" placeholder="Replay to ticket..." class="form-control" name="replaybody"></input>
+
+</div>
+
+</div>
+</form>
+</form>
+
+
+
+</div>
+</form>
+</form>
+</div>
+
+{%else%}
+<tr>
+    <th> 
+<div class="mt-5 px-3 "id="" style="border: 1px solid gray;width: 100%; height: 100%;top: 5;background-color: #E6E6FA;">
+ 
+    
+
+<form class="form-inline">
+   <h4 class=""style="font-size: 18px; " class="badge badge-danger">{{re.ticktype}} - {{re.ticksub}} - </h4>
+   <h4 style="color: #1E90FF; margin-left: 4px;"> {{re.tickstatus}}</h4>
+
+ <ul class="nav navbar-nav ml-auto d-inline">
+<h5 style="font-size: 16px;" class="text-right d-inline"> Added by:</h5><h2 class="d-inline" style="font-size: 15px;   font-weight: bold;"> {{re.useradd}}</h2><h5 class="d-inline"> on: </h5><h2 class="d-inline" style="font-size: 15px;   font-weight: bold;"> {{re.tickdate}}</h2>
+<div class="mt-1">
+<h5 style="font-size: 16px;" class="text-right d-inline"> Closed by: </h5><h2 class="d-inline" style="font-size: 15px;   font-weight: bold;"> {{ re.userclose }}</h2><h5 class="d-inline"> on: </h5><h2 class="d-inline" style="font-size: 15px;   font-weight: bold;"> {{re.closedate}}</h2>
+
+</ul>
+  </nav>
+</form>
+</ul>
+
+  <h1 class="text-left mt-4 my-5 text-wrap" style="margin-right: 5px;margin-left: 5px">{{re.tickname}}</h1> 
+   <div>
+    
+      <a style="margin-top: 30px; margin-bottom: 10px;"  class="{{re.id}}2 text-dark collapsed btn btn-link mt-2 " data-toggle="collapse" href="#{{re.id}}2" role="button" aria-expanded="false" aria-controls="{{re.id}}2">
+    Replays list
+              <i style="margin-left: 7px;" class="fa fa-chevron-right"></i> 
+
+  </a>
+
+<script type="text/javascript">
+   $('.{{re.id}}2').click(function() { 
+            $(this).find('i').toggleClass(' fa fa-chevron-right   fa fa-chevron-down'); 
+        }); 
+</script>
+  <hr style=" margin-top: 3rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);">
+</p>
+<div class="collapse" id="{{re.id}}2">
+  {%for rep in resultsreplay%}
+  {%if re.id == rep.replayreport.id %}
+  <form class="form-inline">
+  
+
+<ul class="nav navbar-nav ml-auto d-inline px-3">
+<h5 style="font-size: 13px;" class="text-right d-inline"> Added by:</h5><h2 class="d-inline" style="font-size: 12px;   font-weight: bold;"> {{rep.userreplay}}</h2><h5 class="d-inline" style="font-size: 13px;"> on: </h5><h2 class="d-inline" style="font-size: 12px;   font-weight: bold;"> {{rep.replaydate}}</h2>
+
+
+</ul>
+  </nav>
+</form>
+  <h1 style="font-size: 15px; margin-right: 5px;margin-left: 5px " class="text-left  text-wrap">{{rep.replaybody}}</h1> 
+   <hr style=" margin-top: 3rem;
+  margin-bottom: 3rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);">
+  {%endif%}
+  {%endfor%}
+</div>
+  </div>
+</div>
+  {%endif%}
+{%endfor%}
+  </div>
+</ul>
+</form>
+</div>
+</h1>
+</div>
+</li>
+</div>
+</th>
+</tr>
+</tbody>
+</thead>
+</table>
+</li>
+</div>
+</div>
+</div>
+</form>
+</td>
+</tr>
+<script type="text/javascript">
+  $(document).ready(function(){
+  $('#{{re.id}}1').collapse('show')
+})
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+  $('#{{re.id}}2').collapse('show')
+})
+</script>
+<script type="">
+  $(document).ready(function() {
+    $('#ticketTable').dataTable( {
+      "ordering": false,
+
+ "bLengthChange" : false, //thought this line could hide the LengthMenu
+"bFilter": false  ,
+"info": false,
+"bStateSave": false,
+"oLanguage": {
+
+"sEmptyTable": "No Tickits"
+},
+
+
+        "dom": '<"top"p><"clear">',
+
+        "pagingType": "simple",
+
+         language: {
+
+    paginate: {
+      next: '&#8594;', // or '→'
+      previous: '&#8592;' // or '←' 
+    }
+  }
+
+    } );
+
+} );
+
+</script>
+<script type="text/javascript">
+   $(document).ready(function() {
+    $('#ticketTable').dataTable( {
+      "language": {
+      "emptyTable":"No record found"
+    },
+
+} );
+
+</script>
+<script type="text/javascript">
+    const $dropdown = $(".dropdown");
+const $dropdownToggle = $(".dropdown-toggle");
+const $dropdownMenu = $(".dropdown-menu");
+const showClass = "show";
+
+$(window).on("load resize", function() {
+  if (this.matchMedia("(min-width: 768px)").matches) {
+    $dropdown.hover(
+      function() {
+        const $this = $(this);
+        $this.addClass(showClass);
+        $this.find($dropdownToggle).attr("aria-expanded", "true");
+        $this.find($dropdownMenu).addClass(showClass);
+      },
+      function() {
+        const $this = $(this);
+        $this.removeClass(showClass);
+        $this.find($dropdownToggle).attr("aria-expanded", "false");
+        $this.find($dropdownMenu).removeClass(showClass);
+      }
+    );
+  } else {
+    $dropdown.off("mouseenter mouseleave");
+  }
+});
+  </script>
+     <script type="text/javascript">
+  $(document).ready(() => {
+  let url = location.href.replace(/\/$/, "");
+ 
+  if (location.hash) {
+    const hash = url.split("#");
+    $('#myTab a[href="#'+hash[1]+'"]').tab("show");
+    url = location.href.replace(/\/#/, "#");
+    history.replaceState(null, null, url);
+    setTimeout(() => {
+      $(window).scrollTop(0);
+    }, 400);
+  } 
+   
+  $('a[data-toggle="tab"]').on("click", function() {
+    let newUrl;
+    const hash = $(this).attr("href");
+    if(hash == "#home") {
+      newUrl = url.split("#")[0];
+    } else {
+      newUrl = url.split("#")[0] + hash;
+    }
+    newUrl += "/";
+    history.replaceState(null, null, newUrl);
+  });
+});
+</script>
+{% if perms.crm.delete_customer %}
+
+<div class="text-center">
+
+
+      <form class="mt-3" action="{% url 'delete1' %}" method="GET" value="{{request.GET.username}}">
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exmpleModal2">
+  delete customer
+</button>
+<!-- Modal -->
+<div class="modal fade text-center" id="exmpleModal2" tabindex="-1" role="dialog" aria-labelledby="exmpleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exmpleModalLabel">delete customer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> 
+
+      <div class="modal-body">
+        <div class="input-group">
+<h2 class="text-danger">Do yo sure want to delete the customer</h2>
+ 
+  
+
+    <td>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+       <form action="{% url 'delete1' %}" method="GET" value="{{request.GET.username}}">
+    
+<input class="text-center" type="hidden" name="username" value="{{request.GET.username}}"/>
+<input type="submit" class="btn btn-danger btn-label" name="submit" value="Yes"/>
+{%endif%}
+</button>
+</div>
+</form>
+
+</td>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+</form>
+  
+</td>
+</form>
+</td>
+</div>
+   
+</div>
+</div>
+
+</div>
+</h1>
+</body>
+
+
+
+</html>

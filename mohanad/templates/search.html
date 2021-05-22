@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="mystyle.css">
+
+
+<meta charset="utf-8">
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    
+
+
+
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+   
+
+    <title>Search</title>
+
+
+                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
+    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+    
+    
+    <script src="https://nightly.datatables.net/js/dataTables.bootstrap4.min.js "></script>
+    
+<style>
+.fixed-top {
+  position: fixed;
+  top: 0;
+  
+}
+navbar .nav-item:not(:last-child) {
+  margin-right: 35px;
+}
+
+.dropdown-toggle::after {
+   transition: transform 0.15s linear; 
+}
+
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+.vl {
+  border-left: 2px solid tomato; 
+  height: 30px;
+}
+
+</style>
+
+</head>
+  
+
+<body class="" style="background-color:#FAF0E6; ">
+<div style="margin-bottom: 100px;">
+{% extends 'headbar.html' %}
+ {% block content %}
+</div>  
+
+   
+        
+      
+    </li>
+  </ul>
+</div>
+</li>
+</li>
+</form>
+</ul>
+</div>
+</li>
+ <div class="card  mx-4" style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  margin-top: 13%;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  
+ ">
+<form action="{% url 'customer' %}" method="GET" value="{request.GET.username">
+<input class="" type="hidden" name="username" value="{{r.username}}"/>
+<input type="submit" class="btn-link text-dark" name="submit" value="{{r.username}}"/>
+</form>
+<div class="text-center mt-2">
+            </div>
+            <div class="container" style="width: 100%">
+          <table class="table table-striped table-bordered  dt-responsive nowrap text-center"  id="searchTable" style="width: 100%;">
+    <thead>
+    <tr ><th class="text-center">Username</th><th class="text-center"> Name</th><th class="text-center">Identity</th><th class="text-center">Mobile</th><th class="text-center">Status</th><th class="text-center">Email</th><th class="text-center">Pointing</th></tr>
+    </thead>
+    <tbody">
+          {%for result in results%}
+
+      <tr >
+        <td><form action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+    
+<input class="" type="hidden" name="username" value="{{result.username}}"/>
+<input type="submit" class="btn btn-link" name="submit" value="{{result.username}} "/>
+</form></td>
+        <td><form action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+    
+<input class="" type="hidden" name="username" value="{{result.username}}"/>
+<input type="submit" class="btn btn-link" name="submit" value="{{result.Arabicname}} "/>
+</form></td><td><form action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+    
+<input class="" type="hidden" name="username" value="{{result.username}}"/>
+<input type="submit" class="btn btn-link" name="submit" value="{{result.identity}}"/>
+</form></td><td>
+  <form action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+    
+<input class="" type="hidden" name="username" value="{{result.username}}"/>
+<input type="submit" class="btn btn-link" name="submit" value="{{result.mobile}}"/>
+</form>  </td><td><form action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+    <input class="" type="hidden" name="username" value="{{result.username}}"/>
+<h5 class="">{{result.status}}</h5>
+
+</form>  </td><td><form action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+    
+<input class="" type="hidden" name="username" value="{{result.username}}"/>
+<input type="submit" class="btn btn-link" name="submit" value="{{result.email}}"/>
+</form>  </td><td style="width: 140px;">  {%if result.pointing is not None %}
+   
+<span  class="  label label-bg" style="font-size: 15px;padding-right: 25%;padding-left: 25%; {%if result.pointing == 'Silver'%} background-color: #C0C0C0; {%elif result.pointing == 'Gold'%} background-color: #FFD700; {%elif result.pointing == 'Platinum' %} background-color: #737373; {%elif result.pointing == 'Diamond'%} background-color: #0080ff {%endif%} "  >{{result.pointing}}</span>{%endif%} </td></tr>
+   {%endfor%}
+
+    </tbody>
+        </div>
+      </div">
+ </table>
+
+ </div>
+
+  
+<script type="">
+  $(document).ready(function() {
+    $('#searchTable').dataTable( {
+      "ordering": false,
+      "language": {
+      "emptyTable":"No record found"
+    },
+      
+
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50]]
+    } );
+    
+
+} );
+</script>
+{%endblock%}
+</body>

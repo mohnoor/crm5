@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <title>Dashboard</title> 
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+
+
+ <link rel="stylesheet" href=  
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">  
+   <!-- CSS -->
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"/>
+
+<style>
+  .vl {
+  border-left: 2px solid tomato; 
+  height: 30px;
+}
+  #navbar {
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: block;
+  transition: top 0.3s;
+}
+  body {
+  font-size: 100%;
+}
+
+
+h1 {
+  font-size: 18px;
+}
+h2 {
+  font-size: 16px;
+}
+
+
+  
+p {
+  font-size: 20px;
+}
+
+p.round {
+  background-color:#F0F0F0;  background: solid black;margin-left:10px;margin-right: 10px; 
+  border-radius: 15px; width: 600px; height: 32px;top: 5; align-items: center;
+  line-height: 170%;
+font-size:19px;
+
+
+} 
+h5{
+  font-size: 16px;
+}
+hr {
+  border: 1px solid black;
+  margin-top: 50px;
+  margin-bottom : 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+p.h  {
+  border: 1px  gray;
+  margin-top: 5px;
+  margin-bottom : 5px;
+  width: 100%;
+}
+tr {
+   line-height: 25px;
+   min-height: 25px;
+   height: 15px;
+}
+td{
+  width: 100px;
+}
+th{
+  width: 100px;
+}
+            td {
+  word-wrap: break-word;
+}
+
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  
+}
+navbar .nav-item:not(:last-child) {
+  margin-right: 35px;
+}
+
+.dropdown-toggle::after {
+   transition: transform 0.15s linear; 
+}
+
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+.border {
+    display: inline-block;
+    width: 140px;
+    height: 100px;
+    margin: 6px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+</style>
+
+</head>
+
+  
+
+<body class="" style="background-color:#F8F8F8; font-size: 18px;">
+
+  
+ <div style="margin-top: 100px;">
+ {% extends 'headbar.html' %}
+ {% block content %}
+</div>  
+<nav class="navbar navbar-expand-lg">
+ 
+    <span class="navbar-text ml-auto ">
+      
+    </span>
+
+
+
+</div>
+</nav>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="button.css" rel="stylesheet" type="text/css">
+<div class="text-center">
+   <div class="card" style="height: 100%;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+margin-left: 1%;
+margin-right: 1%;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 18%;
+  }
+}  ">
+                <div class="card-content">
+                    <div class="card-body py-1">
+  
+                <div style="margin: 2.5rem 0;">
+                    <div class="d-flex align-items-center justify-content-center row">
+                        <div class="col-lg-8 col-12">
+                          <form action="{% url 'search' %}" method="GET" value="{{request.GET.username}}" class="form-group position-relative"
+
+                        >
+
+ 
+<form action="{% url 'search' %}" method="GET" value="{{request.GET.username}}" >
+  <form action=""  method="POST">
+{% csrf_token %}
+  <div class="input-group mb-3">
+
+<div class="input-group bootstrap-touchspin" id="customer_search_wrapper">
+ <input name="username" type="text" class="form-control search-input-field" data-bts-postfix="<i class='ft-search font-medium-4'></i>" name="search" placeholder="Search Customers ...">
+ <span class="input-group-btn input-group-append">
+
+     <div class="input-group-append">
+
+
+<select class="form-control " name="field">
+                           
+<option value="username">Username</option>
+                                  
+<option value="Name">Name</option>
+                                           
+<option value="arabic_name">Arabic Name</option>
+                                            
+<option value="identity">Identity</option>
+                                            
+<option value="mobile">Mobile</option>
+                                            
+<option value="email">Email</option>
+                                            
+</select>
+  <span class="input-group-btn">
+
+<button class="btn btn-primary" type="submit">
+
+<i class="fa fa-search" aria-hidden="true"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                 </span>
+                 </div>   
+</div>
+</form>
+</form>
+</form>
+</div>
+</div>
+</div>
+  
+<div class="card  mx-4" style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  min-height: 250px;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  ">
+
+  <li class="card-body d-inline" style="">
+      <h4>DSL Service</h4>
+<h2">
+             
+  <nav class="navbar  " style="">
+    <div class="container">
+        <ul class="nav navbar-nav">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+</form>
+           <form action="{% url 'all_activation' %}"class="" method="GET" value="">
+  <input  type="hidden" name="username" value="" placeholder=" "/>
+<div class="row mx-auto">
+  
+<button style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  height: 66px;
+min-width: 14em;
+
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  }
+}  " class=" card d-inline  text-dark " type="submit" >
+<div class="d-inline">
+                                    <span style="margin-top: 9%" class=" font-size-7  float-left">{{results|length}}</span>
+
+
+                                    <span style="margin-top: 9%;margin-left: 8em;" class="font-size-7  float-right ">Activation</span>
+                                  </div>
+</button>
+</form>
+            </li>
+           
+        </ul>
+
+         <ul class="nav navbar-nav ml-auto">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+            </form>
+           <form action="{% url 'all_billing' %}"class="" method="GET" value="">
+  <input  type="hidden" name="username" value="" placeholder=" "/>
+
+<button style=";
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  height: 66px;
+min-width: 14em;
+
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);width: 100%;
+  }
+}  " class=" card d-inline pull-up col-sm-1 col-md-1 col-mr-5 text-dark " type="submit" >
+<div class="d-inline">
+
+                                    <span style="margin-top: 9%" class=" font-size-7 text-bold-300 d-inline-block float-left">{{results2|length}}</span>
+                                    <span style="margin-top: 9%;margin-left: 8.8em;" class="font-size-7 text-bold-300 d-inline-block float-right ">Billing    </span>
+</button>
+</form>
+            </li>
+           
+        </ul>
+         <ul class="nav navbar-nav ml-auto">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+            </form>
+           <form action="{% url 'all_pending' %}"class="" method="GET" value="">
+  <input  type="hidden" name="username" value="" placeholder=" "/>
+<button style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  height: 66px;
+min-width: 14em;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);width: 100%;
+  
+ " class=" card d-inline col-sm-1 col-md-1 col-mr-5 text-dark " type="submit" >
+ <div class="d-inline">
+
+                                    <span style="margin-top: 9%" class=" font-size-7 text-bold-300 d-inline-block float-left">{{results3|length}}</span>
+                                    <span style="margin-top: 9%;margin-left: 8em;" class="font-size-7 text-bold-300 d-inline-block float-right ">Pending</span>
+</button>
+</form>
+
+            </li>
+           
+        </ul>
+      </form>
+    </ul>
+  </form>
+       <ul class="nav navbar-nav ml-auto">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+            </form>
+           <form action="{% url 'all_pending' %}"class="" method="GET" value="">
+  <input  type="hidden" name="username" value="" placeholder=" "/>
+<button style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  height: 66px;
+min-width: 14em;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+ " class=" card d-inline col-sm-1 col-md-1 col-mr-5 text-dark " type="submit" >
+  <div class="d-inline">
+
+                                    <span style="margin-top: 9%" class=" font-size-7 text-bold-300 d-inline-block float-left">{{results3|length}}</span>
+                                    <span style="margin-top: 9%;margin-left: 7.2em;" class="font-size-7 text-bold-300 d-inline-block float-right ">Validation</span>
+</button>
+</form>
+
+            </li>
+           
+        </ul>
+      
+
+
+       
+     
+  </nav>
+</form>
+
+ {%endblock%}
+
+    
+
+
+</body>
+
+</html>
+</div>

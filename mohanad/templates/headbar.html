@@ -1,0 +1,170 @@
+ <div style="margin-top: 100px;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top" style="font-size: 18px; ">
+    <div class="container">
+        <ul class="nav navbar-nav">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+
+           <a href="{% url 'home' %}" style="font-size:18px"class="btn btn-link">Dashboard</a>
+            </li>
+           <div class="vl"></div>
+        </ul>
+      </form>
+    </ul>
+         <ul class="nav navbar-nav">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+  <li class="nav-item dropdown">
+
+        <a class="nav-link" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Customer
+          </a>
+        
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+          {% if perms.crm.add_customer %} 
+ <a href="/newcustomer"style="color: #FF6347;font-size: 18px;" class="dropdown-item"> add new customer</a>
+{%endif%}
+</form>
+{% if perms.crm.add_customer %} 
+   <form action="{% url 'all' %}" method="GET" value="">
+   <input  type="hidden" name="username" value="" placeholder=" "/>
+<input type="submit" style="color: #FF6347;font-size: 18px;" class="dropdown-item" name="submit"  value="All customer" />
+ {%endif%}
+</form>          
+
+      </li>
+  
+
+ </li>
+           
+        </ul>
+                   <div class="vl"></div>
+
+         <ul class="nav navbar-nav ">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+          <li class="nav-item dropdown">
+        <a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          User
+        </a>
+        
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% if perms.auth.add_user %} 
+
+
+<a href="{% url 'signup' %}" style="color: #FF6347;font-size: 18px;" class="dropdown-item">Add new user</a>
+</form>
+<form action="{% url 'allusers' %}" method="GET" value="">
+   
+ 
+<input type="submit" style="color: #FF6347;font-size: 18px;" class="dropdown-item"name="submit"  value="All users" />
+ 
+</form>
+
+{%endif%}
+</form>          
+
+      </li>
+  
+            </li>
+             <div class="vl"></div>
+            <ul class="nav navbar-nav ">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+          <li class="nav-item dropdown">
+        <a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Employee
+        </a>
+        
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% if perms.auth.add_user %} 
+
+
+<a href="{% url 'add_employee' %}" style="color: #FF6347;font-size: 18px;" class="dropdown-item">Add employee</a>
+</form>
+<form action="{% url 'employee' %}" method="GET" value="">
+   
+ 
+<input type="submit" style="color: #FF6347;font-size: 18px;" class="dropdown-item"name="submit"  value="All Employee" />
+ 
+</form>
+
+{%endif%}
+</form>          
+
+      </li>
+  
+            </li>
+           
+        </ul>
+        </ul>
+
+</li>
+
+        {% load mathfilters %}
+        
+      
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link " href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <h4 style="color: #FF6347;font-size: 20px;"> {{ user.username }}</h4>
+              </a>
+              <div class="dropdown-menu " aria-labelledby="navbarDropdown2">
+</form>
+</form>
+<form action="{% url 'myopenticket' %}" method="GET" value="{{request.GET.user}}" class="form-group position-relative">
+<div class="input-group bootstrap-touchspin" id="customer_search_wrapper">
+<input name="user" value="{{user}}" type="hidden" class="form-control search-input-field" data-bts-postfix="" name="search">
+<div class="dropdown-divider"></div>
+<button class="dropdown-item"style="color: #FF6347;font-size: 18px;" type="submit">
+My open ticket
+</button>
+</div>
+</form>
+
+<div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'logout' %}" style="color: #FF6347;font-size: 18px;"><i class="fa fa-power-off" style="font-size:15px ;color:red"></i> Log out</a>
+
+              </div>
+            </li>
+          </ul>
+          
+          </form>
+      </div>
+    </div>
+  </nav>
+
+     <script type="text/javascript">
+    const $dropdown = $(".dropdown");
+const $dropdownToggle = $(".dropdown-toggle");
+const $dropdownMenu = $(".dropdown-menu");
+const showClass = "show";
+
+$(window).on("load resize", function() {
+  if (this.matchMedia("(min-width: 768px)").matches) {
+    $dropdown.hover(
+      function() {
+        const $this = $(this);
+        $this.addClass(showClass);
+        $this.find($dropdownToggle).attr("aria-expanded", "true");
+        $this.find($dropdownMenu).addClass(showClass);
+      },
+      function() {
+        const $this = $(this);
+        $this.removeClass(showClass);
+        $this.find($dropdownToggle).attr("aria-expanded", "false");
+        $this.find($dropdownMenu).removeClass(showClass);
+      }
+    );
+  } else {
+    $dropdown.off("mouseenter mouseleave");
+  }
+});
+  </script>
+     
+  </nav>
+<div>
+ {% block content %}
+    {% endblock %}
+        
+</div>

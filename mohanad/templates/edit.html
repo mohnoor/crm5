@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <title>Edit</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+  <style type="text/css">
+    .form-group.required .control-label:after {
+  content:" *";
+  color:red;
+
+      }
+
+  .fixed-top {
+  position: fixed;
+  top: 0;
+  
+}
+navbar .nav-item:not(:last-child) {
+  margin-right: 35px;
+}
+
+.dropdown-toggle::after {
+   transition: transform 0.15s linear; 
+}
+
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+.vl {
+  border-left: 2px solid tomato; 
+  height: 30px;
+}
+
+</style>
+
+</head>
+
+  
+
+<body class="" style="background-color:#FAF0E6; ">
+<div style="">
+{% extends 'headbar.html' %}
+ {% block content %}
+</div>  
+
+<div class="card  mt-5 mx-4" style="
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+
+  <li class="card-body d-inline" style="">
+
+    <div class="form-group">
+    <div class="mt-2 col-md-12" >
+   
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div  {% if message.tags %} class="{{ message.tags }} alert alert-sm alert-success alert-dismissible fade show"role="alert" {% endif %} >{{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div></div>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="text-center">
+
+  <form class="" action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+    
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+<button type="submit" class="btn btn-link">Go back</button>
+
+</form>
+
+</div>
+    <div class="mt-2 col-md-12">
+    
+      <form action="" method="POST">
+            {% csrf_token %}
+    {% for r in results %}
+<input type="hidden" name="username" value="{{r.username}}">
+       <div class="mt-4 col-md-12">
+       <div class="row">
+    <div class="col">
+      <div class="form-group required">
+      <label  class="control-label">Arabic first name</label>
+      <input type="text" class="form-control"placeholder="Arabic first name" value="{{r.Arabicname}}" name="Arabicname"required>
+      
+<div class="row mt-3">
+    <div class="col">
+      <div class="form-group ">
+      <label  class="control-label">English name</label>
+      <input type="text" class="form-control"placeholder="English first name" name="Englishname" value="{{r.Englishname}}" >
+    </div>
+  </div>
+    </div>
+
+       <div class="row mt-3">
+    <div class="col">
+      <label for="inputEmail4">Primary Email
+</label>
+      <input type="text" class="form-control" placeholder="Primary Email" name="email" value="{{r.email}}" >
+      
+    </div>
+
+    <div class="col">
+      <label for="inputEmail4">Secondary Email 1</label>
+      <input type="text" class="form-control" placeholder="Secondary Email 1" name="SecondaryEmail1" value="{{r.SecondaryEmail1}}">
+     
+    </div>
+    <div class="col">
+      <label for="inputEmail4">Secondary Email 2</label>
+    <input type="text" class="form-control" placeholder="Secondary Email 2" name="SecondaryEmail2" value="{{r.SecondaryEmail2}}">
+    <input type="hidden" class="form-control" placeholder="Secondary Email 2" name="SecondaryEmail2_new" value="{{r.SecondaryEmail2}}">
+    </div>
+    
+  </div>
+    
+    <div class="row mt-5">
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Primary Mobile
+</label>
+      <input type="text" maxlength="10" class="form-control" max="10" placeholder="Primary Mobile" name="mobile" value="{{r.mobile}}" required>
+      <input type="hidden" maxlength="10" class="form-control" max="10" placeholder="Primary Mobile" name="mobile_new" value="{{r.mobile}}" >
+    </div>
+  </div>
+    <div class="col">
+      <label for="inputEmail4">Secondary Mobile 1</label>
+      <input type="text" maxlength="10" class="form-control" placeholder="Secondary Mobile 1" name="SecondaryMobile1" value="{{r.SecondaryMobile1}}">
+      <input type="hidden" maxlength="10" class="form-control" placeholder="Secondary Mobile 1" name="SecondaryMobile1_new" value="{{r.SecondaryMobile1}}">
+    </div>
+    <div class="col">
+      <label for="inputEmail4">Secondary Mobile 2</label>
+      <input type="text" maxlength="10" class="form-control" placeholder="Secondary Mobile 2" name="SecondaryMobile2" value="{{r.SecondaryMobile2}}">
+      <input type="hidden" maxlength="10" class="form-control" placeholder="Secondary Mobile 2" name="SecondaryMobile2_new" value="{{r.SecondaryMobile2}}">
+    </div>
+    
+  </div>
+    <div class="row mt-2">
+    
+    <div class="col">
+      <label class="control-label">Fax</label>
+      <input type="text" maxlength="9" class="form-control" placeholder="Fax" name="Fax" value="{{r.Fax}}">
+      <input type="hidden" maxlength="9" class="form-control" placeholder="Fax" name="Fax_new" value="{{r.Fax}}">
+    </div>
+
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Identity </label>
+      <input type="text" maxlength="10" class="form-control" placeholder="Identity " name="identity" value="{{r.identity}}">
+
+    </div>
+
+  </div>
+
+
+    </div>
+<div class="row mt-2">
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Nationality </label>
+<select class="form-control select2-hidden-accessible" id="select1" name="Nationality">
+  <option id="7" selected="" value="{{r.Nationality}}" name="status" >{{r.Nationality}}</option>
+    <option id="7" value="Palestinian" name="status" >Palestinian</option>
+    <option id="7" value="Jordanian" name="status" >Jordanian</option>
+    <option id="7" value="Other" name="status" >Other</option>
+  </select>    </div>
+</div>
+<input type="hidden" maxlength="10" class="form-control" placeholder="Identity " name="Nationality_new" value="{{r.Nationality}}">
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Identity </label>
+     <input type="text" maxlength="10" class="form-control" placeholder="Identity " name="" value="{{r.identity}}">
+    </div>
+<input type="hidden" maxlength="10" class="form-control" placeholder="Identity " name="identity_new" value="{{r.identity}}">
+  </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">City </label>
+<select class="form-control select2-hidden-accessible" id="select2" name="city">
+  <option id="7" selected="" value="{{r.city}}" name="status" >{{r.city}}</option>
+    <option id="7" value="الخليل" name="status" >الخليل</option>
+    <option id="7" value="القدس" name="status" >القدس</option>
+    <option id="7" value="اريحا" name="status" >اريحا</option>
+    <option id="7" value="بيتلحم" name="status" >بيت لحم</option>
+    <option id="7" value="جنين" name="status" >جنين</option>
+    <option id="7" value="خان يونس" name="status" >خان يونس</option>
+    <option id="7" value="دير البلح" name="status" >دير البلح</option>
+    <option id="7" value="رام الله والبيرة" name="status" >رام الله والبيرة</option>
+    <option id="7" value="رفح" name="status" >رفح</option>
+    <option id="7" value="سلفيت" name="status" >سلفيت</option>
+    <option id="7" value="جباليا" name="status" >جباليا</option>
+    <option id="7" value="طوباس" name="status" >طوباس</option>
+    <option id="7" value="طولكرم" name="status" >طولكرم</option>
+    <option id="7" value="غزة" name="status" >غزة</option>
+    <option id="7" value="قلقيلية" name="status" >قلقيلية</option>
+    <option id="7" value="نابلس" name="status" >نابلس</option>
+
+  </select>    </div>
+</div>
+<input type="hidden" maxlength="10" class="form-control" placeholder="Identity " name="city_new" value="{{r.city}}">
+{% if perms.auth.change_user %}
+
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Related to </label>
+     
+      <select class="form-control select2-hidden-accessible"  data-live-search="true" id="select5" name="usercustomer">
+         <option id="7" selected="" value="{{r.usercustomer}}" name="usercustomer" >{{r.usercustomer}}</option>
+         {%for user in users%}
+  <option id="7"  value="{{user.username}}" name="usercustomer" >{{user.username}}</option>
+  {%endfor%}
+   
+  </select> 
+    </div>
+  </div>
+</div>
+{%else%}
+<div class="col">
+      <div class="form-group required ">
+      <label class="control-label">Related to </label>
+     
+      <select class="form-control select2-hidden-accessible " id="select5" name=""  disabled="">
+      <option id="7" selected="" value="{{r.usercustomer}}" name="" >{{r.usercustomer}}</option>
+        
+   
+  </select> 
+  <input type="hidden" value="{{r.usercustomer}}" name="usercustomer">
+    </div>
+  </div>
+</div>
+{%endif%}
+
+  
+
+<div class="row mt-2">
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Address </label>
+   </div>
+    <textarea cols="60" rows="10" name="address">{{r.address}}</textarea>
+
+</div>
+<input type="hidden" maxlength="10" class="form-control" placeholder="Identity " name="address_new" value="{{r.address}}">
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Street </label>
+   </div>  
+   <textarea cols="60" rows="10" name="street">{{r.street}}</textarea>
+
+    </div>
+<input type="hidden" maxlength="10" class="form-control" placeholder="Identity " name="street_new" value="{{r.street}}">
+  </div>
+  
+    <td>
+      <input class="" type="hidden" name="status" value="{{r.status}}"/>
+        <input type="hidden" placeholder="" value="{{r.emergencycount}}" name="emergencycount">
+        <input type="hidden" placeholder="" value="{{r.emergency}}" name="emergency">
+<input class="" type="hidden" name="create" value="{{r.create}}"/>
+<input type="hidden" value="changed from {{r.Arabicfirstname}} to " class="form-group" placeholder="" name="editna"/>
+<input type="hidden" value="{{user}}" class="form-group" placeholder="" name="useredit"/>
+
+      {% endfor %}
+<div class="text-center mt-3">
+  <form action="{% url 'edit' %}" method="GET" value="{{request.GET.username}}">
+    
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+<input type="submit" class="btn btn-primary btn-label" name="submit" value="edit"/> <span class="glyphicon glyphicon-trash"> </span> 
+</td>
+</form>
+</div>
+   </div>
+</div>
+{%endblock%}
+  </body>
+
+

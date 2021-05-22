@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <title>Edit</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+  <style type="text/css">
+    .form-group.required .control-label:after {
+  content:" *";
+  color:red;
+
+      }
+
+  .fixed-top {
+  position: fixed;
+  top: 0;
+  
+}
+navbar .nav-item:not(:last-child) {
+  margin-right: 35px;
+}
+
+.dropdown-toggle::after {
+   transition: transform 0.15s linear; 
+}
+
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+.vl {
+  border-left: 2px solid tomato; 
+  height: 30px;
+}
+
+</style>
+
+</head>
+
+  
+
+<body class="" style="background-color:#FAF0E6; ">
+<div style="">
+{% extends 'headbar.html' %}
+ {% block content %}
+</div>  
+<div class="card  mt-5 mx-4" style="
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+
+  <li class="card-body d-inline" style="">
+
+    <div class="form-group">
+    <div class="mt-2 col-md-12" >
+   
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div {% if message.tags %} class="{{ message.tags }} alert alert-success alert-dismissible"role="alert" {% endif %} >{{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div></div>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="text-center">
+  <form class="" action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+    
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+<button type="submit" class="btn btn-link">Go back</button>
+
+</form>
+
+</div>
+    <div class="mt-2 col-md-12">
+    
+      <form action="" method="POST">
+            {% csrf_token %}
+    {% for r in results %}
+<input type="hidden" name="username" value="{{r.username}}">
+      
+
+    
+
+  
+
+
+
+
+<div class="row mt-2">
+ 
+</div>
+<input type="hidden" maxlength="10" class="form-control" placeholder="Identity " name="Service_new" value="{{r.Service}}">
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Bundle </label>
+<select class="form-control select2-hidden-accessible" id="select4" name="bundle">
+  <option id="7" selected="" value="{{r.bundle}}" name="status" >{{r.bundle}}</option>
+    <option id="7" value="3almakshoof" name="status" >3almakshoof</option>
+    <option id="7" value="halabeek" name="status" >halabeek</option>
+    <option id="7" value="elkeber keber" name="status" >elkeber keber</option>
+  </select>   
+   </div>   
+    </div>
+<input type="hidden" maxlength="10" class="form-control" placeholder="Identity " name="Bundle_new" value="{{r.Bundle}}">
+  </div>
+  <div class="row mt-2">
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Speed </label>
+<select class="form-control select2-hidden-accessible" id="select5" name="speed">
+  <option id="7" selected="" value="{{r.speed}}" name="status" >{{r.speed}}</option>
+    <option id="7" value="8M" name="status" >8M</option>
+    <option id="7" value="16M" name="status" >16M</option>
+    <option id="7" value="24M" name="status" >24M</option>
+    <option id="7" value="30M" name="status" >30M</option>
+    <option id="7" value="50M" name="status" >50M</option>
+    <option id="7" value="100M" name="status" >100M</option>
+  </select>    </div>
+</div>
+<input type="hidden" maxlength="10" class="form-control" placeholder="Identity " name="Speed_new" value="{{r.Speed}}">
+    <div class="col">
+      <div class="form-group required">
+      <label class="control-label">Period </label>
+<select class="form-control select2-hidden-accessible" id="select6" name="period">
+  <option id="7" selected="" value="{{r.period}}" name="status" >{{r.period}}</option>
+    <option id="7" value="3" name="status" >3</option>
+    <option id="7" value="6" name="status" >6</option>
+    <option id="7" value="12" name="status" >12</option>
+  </select>   
+   </div>  
+    </div>
+
+  </div>
+
+
+    <td>
+      <input class="" type="hidden" name="status" value="{{r.status}}"/>
+        <input type="hidden" placeholder="" value="{{r.emergencycount}}" name="emergencycount">
+        <input type="hidden" placeholder="" value="{{r.emergency}}" name="emergency">
+<input class="" type="hidden" name="create" value="{{r.create}}"/>
+<input type="hidden" value="changed from {{r.Arabicfirstname}} to " class="form-group" placeholder="" name="editna"/>
+<input type="hidden" value="{{user}}" class="form-group" placeholder="" name="useredit"/>
+
+      {% endfor %}
+<div class="text-center mt-3">
+  <form action="{% url 'edit' %}" method="GET" value="{{request.GET.username}}">
+    
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+<input type="submit" class="btn btn-primary btn-label" name="submit" value="edit"/> <span class="glyphicon glyphicon-trash"> </span> 
+</td>
+</form>
+</div>
+   </div>
+</div>
+{%endblock%}
+  </body>
+
+
+

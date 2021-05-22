@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="mystyle.css">
+
+
+<meta charset="utf-8">
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    
+
+
+
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+   
+
+    <title>All Profile</title>
+
+
+                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
+    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+    
+    
+    <script src="https://nightly.datatables.net/js/dataTables.bootstrap4.min.js "></script>
+    
+<style>
+.fixed-top {
+  position: fixed;
+  top: 0;
+  
+}
+navbar .nav-item:not(:last-child) {
+  margin-right: 35px;
+}
+
+.dropdown-toggle::after {
+   transition: transform 0.15s linear; 
+}
+
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+.vl {
+  border-left: 2px solid tomato; 
+  height: 30px;
+}
+
+</style>
+
+</head>
+
+  
+
+<body class="" style="background-color:#FAF0E6; ">
+<div style="margin-bottom: 100px;">
+ {% extends 'headbar.html' %}
+ {% block content %}
+</div>  
+<div class="card  " style="
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  margin-top: 150px;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+  <li class="card-body d-inline" style="text-align: center;">
+<div class="text-center">  
+    
+</div>
+ <div class="text-left">
+<label>number of customer is: {{ results|length }}</label>
+</div>
+  <div class="card-body"></div>
+
+
+<div class="container bg">
+    <table class="table table-striped table-bordered  dt-responsive nowrap text-center" style="width:10 " id="myTable">
+    <thead>
+    <tr><th>username</th><th>name</th><th>identity</th><th>mobile</th>
+      <th>address</th><th>status</th><th>Email</th><th>created on</th>
+      <th>last update</th></tr>
+    </thead>
+
+    <tbody>
+          {%for r in results%}
+          
+        
+      <tr>
+        <th><form action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+<input class="btn" type="hidden" name="username" value="{{r.username}}"/>
+<input type="submit" class="btn-link text-dark" name="submit" value="{{r.username}}"/>
+</form></th>
+<td>{{r.Arabicname}} </td><td>{{r.identity}}</td><td>{{r.mobile}}</td><td>{{r.address}}</td><td>{{r.status}}</td><td>{{r.email}}</td><td>{{r.create}}</td><td>{{r.update}}</td>
+
+      </tr>
+   {%endfor%}
+     
+   
+
+    </tbody>
+    </table>
+</div>
+</div>
+
+ <script type="">
+    $(document).ready( function () {
+  var table = $('#myTable').DataTable({
+    "paging":   true,
+        "ordering": true,
+        "info":     true,
+  });
+} );
+    
+</script>
+{%endblock%}
+</body>
+
+

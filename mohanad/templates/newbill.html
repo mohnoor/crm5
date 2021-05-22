@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <title>New bill</title> 
+
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+ 
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.7/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+<style>
+.fixed-top {
+  position: fixed;
+  top: 0;
+  
+}
+navbar .nav-item:not(:last-child) {
+  margin-right: 35px;
+}
+
+.dropdown-toggle::after {
+   transition: transform 0.15s linear; 
+}
+
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+.vl {
+  border-left: 2px solid tomato; 
+  height: 30px;
+}
+
+</style>
+
+</head>
+
+  
+
+<body class="" style="background-color:#FAF0E6; ">
+<div style="margin-bottom: 100px;">
+{% extends 'headbar.html' %}
+ {% block content %}
+</div>  
+ <div class="card  mx-4" style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  height: 400px;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+
+  <li class="card-body d-inline" style="text-align: center; margin: 100px;" >
+    <form class="" action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+    
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+<button type="submit" class="btn btn-link">Go back</button>
+</form>
+    <form action="" method="POST">
+  {% csrf_token %}
+
+{%for customer in results%}
+ <input type="hidden" class="form-control" placeholder="" value="{{customer.period}}" name="period"> 
+{%endfor%}
+     
+ <input type="" style="margin-top: 50px; width: 90% ;" class="form-control" placeholder="Bill coast" value="" name="billcoast"> 
+ <div style="text-align: center; align-items: center;" class="text-center">
+<div class="row ml-auto" style="margin-top: 30px; align-items: center;" >
+    <div class='col ml-auto' style="text-align: center;align-items: center;">
+      <div class="form-group ">
+        <div  class='input-group date px-1' id='datetimepicker1'>
+    <input style="width: 240px; " class="input-group-addon form-control " id='datetimepicker1' value="" name="startdate" />
+        </div>
+ </div>
+</div>
+      <div class='col'>
+      <div class="form-group ">
+        <div  class='input-group date px-1' id='datetimepicker2'>
+    <input style="width: 240px; margin-left: 20px;" class="input-group-addon form-control " id='datetimepicker2' value="{{r.emergency}}" name="enddate" />
+          </span>
+        </div>
+      </div>
+ <script type="">
+$(function() {
+  $('#datetimepicker1').datetimepicker({
+  format: 'Y-MM-DD HH:mm:ss'
+  });
+  $('#datetimepicker2').datetimepicker({
+    format: 'Y-MM-DD HH:mm:ss'
+  });
+
+});</script>
+
+<input type="hidden" class="" value="{{user}}" class="form-group" name="userbill"/>
+
+</div>
+</div>
+
+<input type="hidden" value="{{request.GET.username}}" name="username">
+            <input type="submit" class="btn btn-success mt-5" style="margin-top: 60px;" value="Add Bill"/>
+</form>
+{%endblock%}
+</body>
+</html>

@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+  
+    <title>Add Promotions</title> 
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+   
+<style>
+   .fixed-top {
+  position: fixed;
+  top: 0;
+  
+}
+navbar .nav-item:not(:last-child) {
+  margin-right: 35px;
+}
+
+.dropdown-toggle::after {
+   transition: transform 0.15s linear; 
+}
+
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+.vl {
+  border-left: 2px solid tomato; 
+  height: 30px;
+}
+
+</style>
+
+</head>
+
+  
+
+<body class="" style="background-color:#FAF0E6; ">
+<div style="margin-bottom: 100px;">
+
+     {% extends 'headbar.html' %}
+ {% block content %}
+</div>  
+<div class="card  " style="
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+  <li class="card-body d-inline" >
+
+{% if messages %}
+    {% for message in messages %}
+    <div  {% if message.tags %} class="{{ message.tags }} alert alert-sm alert-success alert-dismissible fade show"role="alert" {% endif %} >{{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>
+    {% endfor %}
+
+{% endif %}
+<div style="text-align: center;">
+    <form class="" action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+    
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+<button type="submit" class="btn btn-link">Go back</button>
+</form>
+    <form action="" method="POST">
+  {% csrf_token %}
+
+<input type="hidden" class="" value="{{user}}" class="form-group" name="userprom"/>
+
+      <select class="form-control select2-hidden-accessible" id="select4" name="monthnum">
+        
+  <option  value="One Free Month" >One Free Month </option>
+  <option  value="Two Free Month" >Two Free Month </option>
+     
+  </select> 
+  <input type="hidden" value="  {{results1.id}}" name="billid">
+
+
+
+<input type="hidden" value="{{request.GET.username}}" name="username">
+            <input type="submit" class="btn btn-success" value="add"/>
+</form>
+{%endblock%}
+</body>
+</html>

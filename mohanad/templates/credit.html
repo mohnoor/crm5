@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <title>Credit</title> 
+
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+ 
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.7/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+<style>
+  .fixed-top {
+  position: fixed;
+  top: 0;
+  
+}
+navbar .nav-item:not(:last-child) {
+  margin-right: 35px;
+}
+
+.dropdown-toggle::after {
+   transition: transform 0.15s linear; 
+}
+
+.show.dropdown .dropdown-toggle::after {
+  transform: translateY(3px);
+}
+
+.dropdown-menu {
+  margin-top: 0;
+}
+.vl {
+  border-left: 2px solid tomato; 
+  height: 30px;
+}
+
+</style>
+
+</head>
+
+  
+
+<body class="" style="background-color:#FAF0E6; ">
+<div style="margin-bottom: 100px;">
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top" style="font-size: 18px; ">
+    <div class="container">
+        <ul class="nav navbar-nav">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+
+           <a href="{% url 'home' %}" style="font-size:18px"class="btn btn-link">Dashboard</a>
+            </li>
+           <div class="vl"></div>
+        </ul>
+      </form>
+    </ul>
+         <ul class="nav navbar-nav">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+  <li class="nav-item dropdown">
+
+        <a class="nav-link" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Customer
+          </a>
+        
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+          {% if perms.crm.add_customer %} 
+ <a href="/newcustomer"style="color: #FF6347;font-size: 18px;" class="dropdown-item"> add new customer</a>
+{%endif%}
+</form>
+{% if perms.crm.add_customer %} 
+   <form action="{% url 'all' %}" method="GET" value="">
+   <input  type="hidden" name="username" value="" placeholder=" "/>
+<input type="submit" style="color: #FF6347;font-size: 18px;" class="dropdown-item" name="submit"  value="All customer" />
+ {%endif%}
+</form>          
+
+      </li>
+  
+
+ </li>
+           
+        </ul>
+                   <div class="vl"></div>
+
+         <ul class="nav navbar-nav ">
+          <form class="form-inline  ">
+            <li class="nav-item" >
+          <li class="nav-item dropdown">
+        <a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          User
+        </a>
+        
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% if perms.auth.add_user %} 
+
+
+<a href="{% url 'signup' %}" style="color: #FF6347;font-size: 18px;" class="dropdown-item">Add new user</a>
+   </form>
+
+<form action="{% url 'allusers' %}" method="GET" value="">
+   
+ 
+<input type="submit" style="color: #FF6347;font-size: 18px;" class="dropdown-item"name="submit"  value="All users" />
+ 
+</form>
+
+{%endif%}
+</form>          
+
+      </li>
+  
+            </li>
+           
+        </ul>
+</li>
+
+        {% load mathfilters %}
+        
+      
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link " href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <h4 style="color: #FF6347;font-size: 20px;"> {{ user.username }}</h4>
+              </a>
+              <div class="dropdown-menu " aria-labelledby="navbarDropdown2">
+</form>
+</form>
+<form action="{% url 'myopenticket' %}" method="GET" value="{{request.GET.user}}" class="form-group position-relative">
+<div class="input-group bootstrap-touchspin" id="customer_search_wrapper">
+<input name="user" value="{{user}}" type="hidden" class="form-control search-input-field" data-bts-postfix="" name="search">
+<div class="dropdown-divider"></div>
+<button class="dropdown-item"style="color: #FF6347;font-size: 18px;" type="submit">
+My open ticket
+</button>
+</div>
+</form>
+
+<div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'logout' %}" style="color: #FF6347;font-size: 18px;"><i class="fa fa-power-off" style="font-size:15px ;color:red"></i> Log out</a>
+
+              </div>
+            </li>
+          </ul>
+          
+          </form>
+      </div>
+    </div>
+  </nav>
+
+     <script type="text/javascript">
+    const $dropdown = $(".dropdown");
+const $dropdownToggle = $(".dropdown-toggle");
+const $dropdownMenu = $(".dropdown-menu");
+const showClass = "show";
+
+$(window).on("load resize", function() {
+  if (this.matchMedia("(min-width: 768px)").matches) {
+    $dropdown.hover(
+      function() {
+        const $this = $(this);
+        $this.addClass(showClass);
+        $this.find($dropdownToggle).attr("aria-expanded", "true");
+        $this.find($dropdownMenu).addClass(showClass);
+      },
+      function() {
+        const $this = $(this);
+        $this.removeClass(showClass);
+        $this.find($dropdownToggle).attr("aria-expanded", "false");
+        $this.find($dropdownMenu).removeClass(showClass);
+      }
+    );
+  } else {
+    $dropdown.off("mouseenter mouseleave");
+  }
+});
+  </script>
+     
+  </nav>
+<div class="card  mx-4" style="height: 100%;
+  margin: 50px auto;
+  background-color: $card-bg;
+  border-radius: 50;
+  border: 50;
+  height: 400px;
+box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  }
+}  ">
+
+  <li class="card-body d-inline" style="text-align: center; margin: 100px;" >
+     <form class="" action="{% url 'customer' %}" method="GET" value="{{request.GET.username}}">
+     
+<input class="" type="hidden" name="username" value="{{request.GET.username}}"/>
+<button type="submit" class="btn btn-link">Go back</button>
+</form>
+    {% load mathfilters %}
+
+<form action="" method="POST">
+  {% csrf_token %}
+    <form class="" action="{% url 'customer' %}" method="GET" value="{{request.GET.id}}">
+
+     {%for r in results%}
+
+   <input type="" class="form-control" placeholder="Paid coast" value="{{r.billcoast|sub:r.credit}}"name="credit"> 
+
+
+ <input type="hidden" placeholder="" value="{{r.id}}" name="billid"> 
+
+{%endfor%}
+  <input type="hidden" value="{{user}}" class="form-group" placeholder="" name="usercredit"/>
+
+
+            <input type="submit" class="btn  btn-success mt-5" value="Paid"/>
+            
+</form>
+</form>
+
+</body>
+</html>
