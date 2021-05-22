@@ -15,18 +15,35 @@ from django.shortcuts import render, get_object_or_404
 
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from .forms import n
 
 
 
+def f(request,id):
+    d=custumer.objects.get(username=id)
+
+    context = {
+        f : d,
+    }
+    return render(request,'search.html',context)    
 
 
 def  home_view(request, *args, **kwargs):
-	print(args, kwargs)
-	print(request)
-	return render(request, "home.html", {})
-
-
-
+    if request.method == 'GET':
+        print(args, kwargs)
+        print(request)
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+            port_number = request.META['SERVER_PORT']
+        return render(request,'home.html',{'ip':ip,'port':port_number})
+    
+           
+    else:
+        return render(request,"base.html")
+	
 def custumer_view(request):
     if request.method == 'GET':
         query= request.GET.get('username') 
@@ -34,7 +51,7 @@ def custumer_view(request):
         submitbutton= request.GET.get('submit')
 
         if query is not None:
-            lookups= Q(username__icontains=query) 
+            lookups= Q(fname__icontains=query) 
             results= custumer.objects.filter(lookups).distinct()
 
             context={'results': results,
@@ -136,18 +153,7 @@ def show_serves(request):
 	
 def emplog(request, *args, **kwargs):
 
-	form = UsersLoginForm(request.POST or None)
-	if form.is_valid():
-		username = form.cleaned_data.get("username")
-		password = form.cleaned_data.get("password")
-		user = authenticate(username = username, password = password)
-		login(request, user)
-		return redirect("/")
-	return render(request, "search.html", {
-		"form" : form,
-		"title" : "Login",
-	})
-
+	return render(request)
 
 
 def search_view(request):
@@ -171,23 +177,23 @@ def search_view(request):
     else:
         return render(request, "search.html")
 
-def new_custumer(request, *args, **kwargs):
+def new_custumer(request):
     if request.method == 'POST':
-        if request.POST.get('username'):
-	        new =custumer()
-	        new.username=request.POST.get('username')
-	        new.fname=request.POST.get('fname')
-	        new.lname=request.POST.get('lname')
-	        new.identity=request.POST.get('identity')
-	        new.mobile=request.POST.get('mobile')
-	        new.address=request.POST.get('address')
+        form = n(request.POST)
+        form.save()
 
-	        new.save()
-        return render(request, "newcustumer.html", {})
+        
+    
     else:
-        return render(request, "newcustumer.html", {})
-      
+        form = n()
+    context = {
 
+        'form' : form ,
+
+    
+    }    
+    return render(request,"new_custumer.html", context)
+        
 
 def edit(request):  
     if request.method == 'GET2':

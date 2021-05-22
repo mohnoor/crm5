@@ -16,17 +16,12 @@ class serves(models.Model):
 
 class custumer(models.Model):
   username = models.CharField(max_length=45, primary_key=True)
-  fname = models.CharField(max_length=45, primary_key=True)
+  fname = models.CharField(max_length=45)
   lname = models.CharField(max_length=45)
   identity = models.IntegerField(default=True)
   mobile = models.IntegerField(default=True)
   address = models.CharField(max_length=45)
   cserve = models.ForeignKey(serves,default=True, on_delete=models.CASCADE)
-
-
-
-
-
 
 
 class emploeey(models.Model):

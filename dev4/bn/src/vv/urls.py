@@ -36,6 +36,7 @@ url(r'^edit/$',views.edit_view, name='edit'),
 url(r'^showallserves/$',views.show_serves, name='showallserves'),
 url(r'^newserves/$',views.new_serves, name='newserves'),
 url(r'^delete1$',views.delete_view, name='delete1'),
+#url(r'^{?P<id<\d+}$',views.f, name='f'),
 
 
 
